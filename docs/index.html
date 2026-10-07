@@ -370,7 +370,7 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
   <p class="sub">Build, ground, equip, evaluate and govern AI agents<br>in your own Azure subscription</p>
   <div class="orgs"><span class="chip" id="customer-chip" hidden></span><span class="chip">Hands-on workshop</span><span class="chip">In your own Azure subscription</span></div>
   <p class="who"><strong>Vraja Kishore Mudumbai</strong><br><span class="muted">Microsoft</span></p>
-  <aside class="notes">Theme for the day: agents that act, not agents that answer. By the end, everyone has built agents in their own subscription that read live data, decide, call tools and run as a multi-agent workflow. Press S for speaker view.</aside>
+  <aside class="notes">Theme for the day: agents that act, not agents that answer. By the end, everyone has built agents in their own subscription that read live data, decide, call tools and run together as a hosted agent. Press S for speaker view.</aside>
 </section>
 
 <!-- 2 -->
@@ -382,7 +382,7 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
     <div class="ag lab"><span class="n">3</span><span class="t">1:10 · 25 min</span><h4>Build the first agent</h4><p>Anomaly + diagnosis agents with a function tool</p></div>
     <div class="ag"><span class="n">4</span><span class="t">1:45 · 15 min</span><h4>Knowledge and actions</h4><p>Demo: Foundry IQ citations, work-order tool, approval step</p></div>
     <div class="ag lab"><span class="n">5</span><span class="t">2:00 · 20 min</span><h4>Trace and evaluate</h4><p>App Insights traces; coherence and fluency evaluation</p></div>
-    <div class="ag lab"><span class="n">6</span><span class="t">2:20 · 20 min</span><h4>Orchestrate</h4><p>Multi-agent workflow, in code and in the portal</p></div>
+    <div class="ag lab"><span class="n">6</span><span class="t">2:20 · 20 min</span><h4>Orchestrate and deploy</h4><p>Multi-agent orchestration in code, deployed as a hosted agent</p></div>
     <div class="ag"><span class="n">7</span><span class="t">2:40 · 10 min</span><h4>Production readiness</h4><p>Identity, RBAC, network, safety, monitoring</p></div>
     <div class="ag"><span class="n">8</span><span class="t">2:50 · 10 min</span><h4>Next steps</h4><p>Pick one use case, name one owner</p></div>
   </div>
@@ -401,21 +401,21 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
       <ul><li>Foundry resource and project</li><li>Model deployment</li><li>Application Insights, Log Analytics</li></ul>
     </div>
     <div class="plane dp">
-      <span class="role">Foundry User</span>
+      <span class="role">Foundry Project Manager</span>
       <h4>Data plane: use things</h4>
-      <ul><li>Create and version agents</li><li>Run conversations and tools</li><li>Run evaluations</li></ul>
+      <ul><li>Create and version agents</li><li>Run conversations and tools</li><li>Run evaluations</li><li>Deploy hosted agents</li></ul>
     </div>
   </div>
-  <div class="callout amber fragment"><strong>Owner or Contributor alone can't build agents.</strong> A Contributor can't assign roles either. Ask an Owner or User Access Administrator to grant <strong>Foundry User</strong>, formerly Azure AI User.</div>
+  <div class="callout amber fragment"><strong>Owner or Contributor alone can't build agents.</strong> Ask an Owner or User Access Administrator to grant <strong>Foundry Project Manager</strong> on your resource group.</div>
   <div class="checks">
     <div><strong>Region and quota</strong>≥ 10K TPM of <code>gpt-5.4</code> per person; <code>gpt-5-mini</code> as fallback</div>
-    <div><strong>Workstation</strong>Codespaces, or Python 3.10+, Azure CLI 2.80+, Git</div>
+    <div><strong>Workstation</strong>Codespaces, or Python 3.10+, Azure CLI 2.80+, azd 1.27.1+, Git</div>
     <div><strong>Network</strong><code>ai.azure.com</code>, <code>*.services.ai.azure.com</code>, GitHub, PyPI</div>
     <div><strong>Provisioned</strong>Project + model + App Insights in your resource group</div>
     <div><strong>Smoke test</strong>Playground replies; <code>smoke_test.py</code> passes</div>
   </div>
   <p class="src">Full checklist: <a href="https://github.com/vrajakishore/foundry-agents-workshop/blob/main/PREREQUISITES.md" target="_blank">PREREQUISITES.md</a> · <a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank">RBAC for Foundry</a></p>
-  <aside class="notes">If you see PermissionDenied while creating an agent, the Foundry User role is usually missing. Role assignments can take up to 10 minutes to apply; sign out and in again.</aside>
+  <aside class="notes">If you see PermissionDenied while creating an agent, the Foundry Project Manager role is usually missing. Role assignments can take up to 10 minutes to apply; sign out and in again.</aside>
 </section>
 
 <!-- 4 -->
@@ -447,7 +447,7 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
     <div class="st"><div class="ico">🤖</div><h4>Agents</h4><p>Prompt, voice, hosted</p></div>
     <div class="st"><div class="ico">🛠️</div><h4>Tools</h4><p>Functions, MCP, OpenAPI</p></div>
     <div class="st"><div class="ico">📚</div><h4>Knowledge</h4><p>Foundry IQ, memory</p></div>
-    <div class="st"><div class="ico">🔀</div><h4>Workflows</h4><p>Multi-agent, approvals</p></div>
+    <div class="st"><div class="ico">🔀</div><h4>Orchestration</h4><p>Agent Framework, in code</p></div>
     <div class="st ops"><div class="ico">📈</div><h4>Observe</h4><p>Traces, evaluations, monitoring</p></div>
     <div class="st ops"><div class="ico">🛡️</div><h4>Operate</h4><p>Identity, RBAC, network, cost</p></div>
   </div>
@@ -489,7 +489,7 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
   <div class="grid3">
     <div class="card amber"><div class="ico">📝</div><h4>Prompt agent</h4><p>Instructions + model + tools, defined as configuration. Built in the portal or with the SDK. Every save is a new <strong>version</strong>, and Foundry runs it for you.</p><p class="here">Lab: anomaly + diagnosis agents</p></div>
     <div class="card violet"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>Real-time speech through Voice Live, with the same tools as a text agent. Telephony and Teams channels.</p><p class="here">Demo: a technician speaks in their own language</p></div>
-    <div class="card green"><div class="ico">📦</div><h4>Hosted agent</h4><p>Your code and framework (Microsoft Agent Framework, LangGraph and others) in a container, with a managed endpoint, scaling and identity.</p><p class="here">Developers: <code>azd ai agent</code> + Foundry Toolkit</p></div>
+    <div class="card green"><div class="ico">📦</div><h4>Hosted agent</h4><p>Your code and framework (Microsoft Agent Framework, LangGraph and others) in a container, with a managed endpoint, scaling and identity.</p><p class="here">Lab: the multi-agent orchestration, deployed with <code>azd ai agent</code></p></div>
   </div>
   <div class="callout">Start with a prompt agent. Move to hosted only when you need custom orchestration.</div>
   <aside class="notes">A prompt agent has instructions, a model, tools and versions. Versions matter later for evaluations and rollback. Hosted agents are the path for running your own agent code.</aside>
@@ -592,7 +592,7 @@ response = openai.responses.create(
     </div>
   </div>
   <p class="code-link"><a href="https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol" target="_blank">📎 Connect an agent to an MCP server</a> · <code>supervisor_approves</code> is your own approval UX</p>
-  <aside class="notes">This is the code behind a human approval before a tool runs. The portal workflow designer offers the same approval step without code. Nothing is written to the maintenance system until a supervisor approves.</aside>
+  <aside class="notes">This is the code behind a human approval before a tool runs. In lab block C, Agent Framework does the same with approval_mode="always_require" on the work-order tool. Nothing is written to the maintenance system until a supervisor approves.</aside>
 </section>
 
 <!-- 12 -->
@@ -628,14 +628,14 @@ response = openai.responses.create(
 <section class="section-slide">
   <p class="section-kicker">Part 2 of 4</p>
   <h2>See it act</h2>
-  <p class="section-sub">Workflows, demos and observability</p>
+  <p class="section-sub">Orchestration, demos and observability</p>
   <div class="roadmap"><span>The platform</span><span class="current">See it act</span><span>Build it</span><span>Ship it</span></div>
-  <aside class="notes">Part 2: workflows, demos and observability.</aside>
+  <aside class="notes">Part 2: orchestration, demos and observability.</aside>
 </section>
 
 <!-- 14 -->
 <section>
-  <h3>A multi-agent workflow with a human gate</h3>
+  <h3>A multi-agent orchestration with a human gate</h3>
   <svg class="wf" viewBox="0 0 1160 330" role="img" aria-label="Sensor feed goes to the anomaly agent. If there's an anomaly, the diagnosis agent finds the root cause, a supervisor approves, and the work-order tool runs. Otherwise the run is logged to the shift report.">
     <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#5b6b78" stroke-width="1.6"/></marker></defs>
     <path class="edge" d="M200 120 L238 120" marker-end="url(#ar)"/>
@@ -654,11 +654,11 @@ response = openai.responses.create(
     <g class="node muted"><rect x="472" y="222" width="250" height="58" rx="12"/><text class="t1" x="597" y="258" text-anchor="middle" style="font-size:18px">📝 Log to shift report</text></g>
   </svg>
   <div class="grid3" style="margin-top:6px">
-    <div class="card"><h4>Agents as nodes</h4><p>Each agent is versioned and evaluated on its own.</p></div>
-    <div class="card amber"><h4>Approval step <span class="badge">Preview</span></h4><p>Nothing reaches the CMMS until a person says yes.</p></div>
-    <div class="card green"><h4>Visual or code</h4><p>Portal canvas with Power Fx conditions, or Microsoft Agent Framework.</p></div>
+    <div class="card"><h4>Agents as steps</h4><p>Each agent has its own tools and is evaluated on its own.</p></div>
+    <div class="card amber"><h4>Approval step</h4><p>Nothing reaches the CMMS until a person says yes.</p></div>
+    <div class="card green"><h4>Code first, hosted</h4><p>Agent Framework, deployed as a hosted agent. Visual option: Logic Apps.</p></div>
   </div>
-  <aside class="notes">The session 4 demo. In lab block C you build this workflow without the approval step. The approval step is where trust is built.</aside>
+  <aside class="notes">The session 4 demo, built with Microsoft Agent Framework and running as a hosted agent. In lab block C you build it yourself, including the approval step. The approval step is where trust is built.</aside>
 </section>
 
 <!-- 15 -->
@@ -670,7 +670,7 @@ response = openai.responses.create(
     <div class="demo"><div class="ico">🐍</div><h4>Code Interpreter as analyst</h4><p>Plots vibration against RPM for 48 h and checks for a bearing signature</p><div class="time">4 min</div></div>
     <div class="demo"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>A technician or service agent speaks in their own language and gets a diagnosis by voice</p><div class="time">5 min</div></div>
     <div class="demo"><div class="ico">🧪</div><h4>Evaluate, red-team, monitor</h4><p>"Is it safe to put in front of thousands of users?"</p><div class="time">4 min</div></div>
-    <div class="demo" style="opacity:0.85"><div class="ico">💻</div><h4>Foundry Toolkit for VS Code</h4><p>Developer audiences: template → local trace → hosted agent with <code>azd ai agent</code></p><div class="time">optional</div></div>
+    <div class="demo" style="opacity:0.85"><div class="ico">💻</div><h4>Foundry Toolkit for VS Code</h4><p>Developer audiences: the orchestration in Agent Inspector → hosted agent with <code>azd ai agent</code></p><div class="time">optional</div></div>
   </div>
   <aside class="notes">A selection of demos of agents doing real work. Browser automation and voice are in preview.</aside>
 </section>
@@ -738,7 +738,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
     <div class="blk b"><div class="hd"><span class="L">B</span><div><h4>Knowledge + actions</h4><p>15 min · session 4 · demo</p></div></div>
       <ol><li>Foundry IQ knowledge base from a machine manual</li><li>Answer with a citation</li><li>Work-order tool through MCP or OpenAPI</li><li>Approval step before the tool runs</li></ol></div>
     <div class="blk c"><div class="hd"><span class="L">C</span><div><h4>Observe, evaluate, orchestrate</h4><p>40 min · sessions 5–6</p></div></div>
-      <ol><li>Run <code>monitor.py</code>; open a trace: tool call, tokens, latency</li><li>Run an evaluation: coherence and fluency</li><li>Run the multi-agent workflow: <code>deploy.py</code></li><li>Build it in the portal workflow designer</li></ol></div>
+      <ol><li>Run <code>monitor.py</code>; open a trace: tool call, tokens, latency</li><li>Run an evaluation: coherence and fluency</li><li>Run the orchestration and approve a work order: <code>run_local.py</code></li><li>Deploy it as a hosted agent: <code>azd deploy</code></li></ol></div>
   </div>
   <div class="callout amber">Quota error? Switch to <code>gpt-5-mini</code>. Blocked? Pair with a neighbour or use Codespaces.</div>
   <aside class="notes">Block A is lab Challenge 1. Block B is a demo. Block C is Challenges 2 to 4. In the evaluation challenge, don't enable Tool Call Accuracy for local-only tools.</aside>
@@ -755,7 +755,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
     <div><div class="ico">🛠️</div><p>Tool</p><span>check_thresholds</span></div>
     <div><div class="ico">🔍</div><p>Trace</p><span>App Insights</span></div>
     <div><div class="ico">🧪</div><p>Eval run</p><span>baseline</span></div>
-    <div><div class="ico">🔀</div><p>Workflow</p><span>multi-agent</span></div>
+    <div><div class="ico">🔀</div><p>Orchestration</p><span>hosted agent</span></div>
   </div>
   <div class="callout" style="margin-top:34px">If you get blocked, raise your hand early. Most fixes take one minute: a role, a region, or a quota.</div>
   <aside class="notes">The goal for the lab: all seven pieces working in your own subscription.</aside>
@@ -767,11 +767,12 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
   <table class="t">
     <thead><tr><th>You see</th><th>Likely cause</th><th>Fix</th></tr></thead>
     <tbody>
-      <tr><td><code>PermissionDenied</code> creating an agent</td><td>Missing Foundry User role</td><td>Admin assigns it on the resource group; wait up to 10 minutes; sign in again</td></tr>
+      <tr><td><code>PermissionDenied</code> creating an agent</td><td>Missing Foundry Project Manager role</td><td>Admin assigns it on the resource group; wait up to 10 minutes; sign in again</td></tr>
       <tr><td><code>InsufficientQuota</code></td><td>No Global Standard quota in this region</td><td>Use <code>gpt-5-mini</code>, another region, or request quota</td></tr>
       <tr><td><code>DeploymentModelNotSupported</code></td><td>Model or version not offered in this region</td><td><code>az cognitiveservices model list --location &lt;region&gt;</code></td></tr>
       <tr><td><code>RequestDisallowedByPolicy</code></td><td>Azure Policy deny (region, network, tags)</td><td>Exempt the sandbox resource group, or add the required tags</td></tr>
       <tr><td><code>DefaultAzureCredential failed</code></td><td>Wrong tenant or not signed in</td><td><code>az login --tenant &lt;id&gt;</code>, then <code>az account set</code></td></tr>
+      <tr><td><code>azd</code> uses the wrong account</td><td><code>azd</code> has its own sign-in</td><td><code>azd config set auth.useAzCliAuth true</code></td></tr>
       <tr><td><code>'project' is misspelled</code></td><td>Azure CLI older than 2.80</td><td><code>az upgrade</code></td></tr>
       <tr><td>Classic or hub screens</td><td>New Foundry toggle is off</td><td>Turn on <strong>New Foundry</strong> in the portal header</td></tr>
     </tbody>
@@ -814,7 +815,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
       <h4>Basic setup <span class="badge teal">Workshop</span></h4>
       <div class="layer svc">🤖 Foundry Agent Service</div>
       <div class="layer ms">Microsoft-managed storage<br>conversations · files · vector stores</div>
-      <p class="foot">Fastest start. Needs Contributor + Foundry User.</p>
+      <p class="foot">Fastest start. Needs Contributor + Foundry Project Manager.</p>
     </div>
     <div class="panel std">
       <h4>Standard setup <span class="badge green">Production</span></h4>
@@ -889,7 +890,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
   <div class="tl">
     <div><h4>Today</h4><p>Choose the use case and the owner; confirm the subscription and region</p></div>
     <div><h4>Week 1</h4><p>Data sample and tools wired; first agent version; baseline evaluation</p></div>
-    <div><h4>Week 2</h4><p>Workflow with approval; evaluation gate; demo to the business sponsor</p></div>
+    <div><h4>Week 2</h4><p>Orchestration with approval, as a hosted agent; evaluation gate; demo to the business sponsor</p></div>
     <div><h4>Then</h4><p>Fortnightly solutioning cadence + Foundry Toolkit enablement for developers</p></div>
   </div>
   <div class="grid4" style="margin-top:40px">
@@ -898,7 +899,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
     <div class="card violet"><h4>🪪 Entra Agent ID</h4><p>every agent has an identity</p></div>
     <div class="card green"><h4>📣 Publish to Teams</h4><p>adoption isn't another app</p></div>
   </div>
-  <aside class="notes">Recap of what each person built: project → model → agents with a function tool → trace → evaluation → workflow.</aside>
+  <aside class="notes">Recap of what each person built: project → model → agents with a function tool → trace → evaluation → hosted multi-agent orchestration.</aside>
 </section>
 
 <!-- 28 -->

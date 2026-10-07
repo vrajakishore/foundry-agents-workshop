@@ -9,9 +9,10 @@
         },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "lts"
-        }
+        },
+        "ghcr.io/azure/azure-dev/azd:latest": {}
     },
-    "postCreateCommand": "az config set extension.dynamic_install_allow_preview=true && pip3 install --upgrade pip && pip3 install --user -r requirements.txt",
+    "postCreateCommand": "az config set extension.dynamic_install_allow_preview=true && pip3 install --upgrade pip && pip3 install --user -r requirements.txt && (azd extension install azure.ai.agents || true)",
     "customizations": {
         "vscode": {
             "extensions": [

@@ -1,0 +1,162 @@
+{
+  "factory": "TireForge Industries",
+  "floor": "Production Line A",
+  "timestamp": "2026-05-13T09:30:00Z",
+  "machines": [
+    {
+      "machine_id": "MX-001",
+      "name": "mixer",
+      "description": "Blends raw rubber compounds with carbon black and chemicals",
+      "status": "warning",
+      "last_maintenance": "2026-04-15",
+      "readings": {
+        "temperature": {
+          "value": 92.3,
+          "unit": "celsius"
+        },
+        "pressure": {
+          "value": 3.1,
+          "unit": "bar"
+        },
+        "vibration": {
+          "value": 4.8,
+          "unit": "mm/s"
+        },
+        "rpm": {
+          "value": 58,
+          "unit": "rpm"
+        }
+      },
+      "thresholds": {
+        "temperature": { "min": 60, "max": 90 },
+        "pressure": { "min": 2.0, "max": 4.0 },
+        "vibration": { "min": 0, "max": 4.5 },
+        "rpm": { "min": 40, "max": 65 }
+      }
+    },
+    {
+      "machine_id": "EX-002",
+      "name": "extruder",
+      "description": "Shapes rubber into tire tread profiles",
+      "status": "normal",
+      "last_maintenance": "2026-05-01",
+      "readings": {
+        "temperature": {
+          "value": 115.0,
+          "unit": "celsius"
+        },
+        "pressure": {
+          "value": 12.5,
+          "unit": "bar"
+        },
+        "vibration": {
+          "value": 2.1,
+          "unit": "mm/s"
+        },
+        "rpm": {
+          "value": 30,
+          "unit": "rpm"
+        }
+      },
+      "thresholds": {
+        "temperature": { "min": 100, "max": 130 },
+        "pressure": { "min": 10.0, "max": 15.0 },
+        "vibration": { "min": 0, "max": 3.5 },
+        "rpm": { "min": 20, "max": 40 }
+      }
+    },
+    {
+      "machine_id": "CP-003",
+      "name": "curing_press",
+      "description": "Vulcanizes tire under heat and pressure in molds",
+      "status": "critical",
+      "last_maintenance": "2026-03-20",
+      "readings": {
+        "temperature": {
+          "value": 198.5,
+          "unit": "celsius"
+        },
+        "pressure": {
+          "value": 18.2,
+          "unit": "bar"
+        },
+        "vibration": {
+          "value": 7.3,
+          "unit": "mm/s"
+        },
+        "rpm": {
+          "value": 0,
+          "unit": "rpm"
+        }
+      },
+      "thresholds": {
+        "temperature": { "min": 140, "max": 180 },
+        "pressure": { "min": 12.0, "max": 16.0 },
+        "vibration": { "min": 0, "max": 3.0 },
+        "rpm": { "min": 0, "max": 0 }
+      }
+    },
+    {
+      "machine_id": "CU-004",
+      "name": "cooling_unit",
+      "description": "Gradually cools cured tires to prevent thermal shock",
+      "status": "normal",
+      "last_maintenance": "2026-04-28",
+      "readings": {
+        "temperature": {
+          "value": 35.2,
+          "unit": "celsius"
+        },
+        "pressure": {
+          "value": 1.0,
+          "unit": "bar"
+        },
+        "vibration": {
+          "value": 0.8,
+          "unit": "mm/s"
+        },
+        "rpm": {
+          "value": 120,
+          "unit": "rpm"
+        }
+      },
+      "thresholds": {
+        "temperature": { "min": 20, "max": 45 },
+        "pressure": { "min": 0.8, "max": 1.5 },
+        "vibration": { "min": 0, "max": 2.0 },
+        "rpm": { "min": 80, "max": 150 }
+      }
+    },
+    {
+      "machine_id": "IS-005",
+      "name": "inspection_station",
+      "description": "Quality assurance via vibration and dimensional analysis",
+      "status": "warning",
+      "last_maintenance": "2026-04-10",
+      "readings": {
+        "temperature": {
+          "value": 28.0,
+          "unit": "celsius"
+        },
+        "pressure": {
+          "value": 1.0,
+          "unit": "bar"
+        },
+        "vibration": {
+          "value": 5.2,
+          "unit": "mm/s"
+        },
+        "rpm": {
+          "value": 1800,
+          "unit": "rpm"
+        }
+      },
+      "thresholds": {
+        "temperature": { "min": 18, "max": 30 },
+        "pressure": { "min": 0.8, "max": 1.2 },
+        "vibration": { "min": 0, "max": 4.0 },
+        "rpm": { "min": 1500, "max": 2200 }
+      }
+    }
+  ]
+}

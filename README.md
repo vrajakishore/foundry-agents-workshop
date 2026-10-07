@@ -1,6 +1,6 @@
 # Microsoft Foundry hands-on workshop: agents that act
 
-Code companion for the Microsoft Foundry hands-on workshop. You build agents in your own Azure subscription that read live machine data, decide, call tools and run as a multi-agent workflow.
+Code companion for the Microsoft Foundry hands-on workshop. You build agents in your own Azure subscription that read live machine data, decide, call tools and work together as a hosted agent.
 
 📽️ **Slides:** https://vrajakishore.github.io/foundry-agents-workshop/
 
@@ -12,7 +12,7 @@ A predictive-maintenance system for a fictional tyre plant, TireForge Industries
 - A **fault diagnosis agent** that finds the likely root cause and recommends an action
 - **Traces** of every model and tool call in Application Insights
 - An **evaluation run** that scores the agent's answers
-- A **multi-agent workflow**, in code and in the Foundry portal
+- A **multi-agent orchestration** in Microsoft Agent Framework that asks you to approve each work order, deployed as a Foundry hosted agent
 
 ## Before the workshop
 
@@ -35,7 +35,7 @@ az login --use-device-code
 
 ### Your own laptop
 
-You need Python 3.10+, Azure CLI 2.80+ and Git.
+You need Python 3.10+, Azure CLI 2.80+ and Git. For challenge 4 you also need Azure Developer CLI (`azd`) 1.27.1+.
 
 ```powershell
 git clone https://github.com/vrajakishore/foundry-agents-workshop.git
@@ -68,7 +68,7 @@ The full scenario is in [factory/README.md](factory/README.md).
 | 1 | [Build agents](factory/challenge-1-build/README.md) | Create the anomaly detection and fault diagnosis agents | 3 |
 | 2 | [Monitor](factory/challenge-2-monitor/README.md) | Trace your agents in Application Insights | 5 |
 | 3 | [Evaluate](factory/challenge-3-evaluate/README.md) | Score the agent's answers for coherence and fluency | 5 |
-| 4 | [Orchestrate](factory/challenge-4-deploy/README.md) | Run a multi-agent workflow in code, then build it in the portal | 6 |
+| 4 | [Orchestrate and deploy](factory/challenge-4-deploy/README.md) | Chain both agents in code, approve work orders, deploy as a hosted agent | 6 |
 
 When you finish, see the [wrap-up](factory/wrapup.md) for ideas on where to go next.
 

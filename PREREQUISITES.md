@@ -39,17 +39,17 @@ Add all participants to one **Microsoft Entra security group**, then assign thes
 | Role | Scope | Lets participants |
 | --- | --- | --- |
 | **Contributor** | `foundry-workshop` resource group | Create their Foundry project, deploy a model and connect tracing |
-| **Foundry User** (formerly Azure AI User) | `foundry-workshop` resource group | Create, run and evaluate agents |
+| **Foundry Project Manager** | `foundry-workshop` resource group | Create, run and evaluate agents, and deploy them as hosted agents |
 | **Cognitive Services Usages Reader** | Subscription | See available quota when deploying a model |
 
-> **Important:** Participants need **both** Contributor and Foundry User. Foundry User alone can't create projects, and Contributor alone can't build agents. Only an **Owner** or **User Access Administrator** can assign these roles.
+> **Important:** Participants need **both** Contributor and Foundry Project Manager. Contributor alone can't build agents, and the last lab needs Foundry Project Manager to deploy a hosted agent. Only an **Owner** or **User Access Administrator** can assign these roles.
 
 ```powershell
 $sub   = "<subscription-id>"
 $group = "<participants-group-object-id>"
 $rg    = "/subscriptions/$sub/resourceGroups/foundry-workshop"
 az role assignment create --role "Contributor" --assignee-object-id $group --assignee-principal-type Group --scope $rg
-az role assignment create --role "53ca6127-db72-4b80-b1b0-d745d6d5456d" --assignee-object-id $group --assignee-principal-type Group --scope $rg   # Foundry User
+az role assignment create --role "eadc314b-1a2d-4efa-be10-5d325db5065e" --assignee-object-id $group --assignee-principal-type Group --scope $rg   # Foundry Project Manager
 az role assignment create --role "Cognitive Services Usages Reader" --assignee-object-id $group --assignee-principal-type Group --scope "/subscriptions/$sub"
 ```
 
@@ -62,7 +62,7 @@ If participants are on a corporate network or proxy, allow:
 - **Foundry:** `ai.azure.com`, `*.services.ai.azure.com`, `*.cognitiveservices.azure.com`, `*.openai.azure.com`
 - **Azure:** `login.microsoftonline.com`, `management.azure.com`, `portal.azure.com`
 - **Monitoring:** `*.applicationinsights.azure.com`, `*.monitor.azure.com`
-- **Code:** `github.com`, `*.githubusercontent.com`, `*.github.dev`, `pypi.org`, `files.pythonhosted.org`
+- **Code:** `github.com`, `*.githubusercontent.com`, `*.github.dev`, `aka.ms`, `pypi.org`, `files.pythonhosted.org`
 
 If your tenant blocks **device-code sign-in**, participants can't sign in from GitHub Codespaces and should use their own laptop instead.
 
@@ -115,7 +115,7 @@ The lab code is in https://github.com/vrajakishore/foundry-agents-workshop. Choo
 
 **Option B — Your own laptop**
 
-Install **Python 3.10+**, **Azure CLI 2.80+**, **Git** and **VS Code**, then run:
+Install **Python 3.10+**, **Azure CLI 2.80+**, **Azure Developer CLI (`azd`) 1.27.1+**, **Git** and **VS Code**, then run:
 
 ```powershell
 git clone https://github.com/vrajakishore/foundry-agents-workshop.git
@@ -123,6 +123,7 @@ cd foundry-agents-workshop
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
+azd ext install azure.ai.agents
 az login
 ```
 
@@ -152,7 +153,7 @@ python factory/smoke_test.py
 | You see | Fix |
 | --- | --- |
 | Permission error when creating the project | Under **Advanced options**, select the **`foundry-workshop`** resource group. If it still fails, ask your administrator for **Contributor** on it |
-| `PermissionDenied` when creating an agent | Ask your administrator for the **Foundry User** role. Wait 10 minutes, then sign in again |
+| `PermissionDenied` when creating or deploying an agent | Ask your administrator for the **Foundry Project Manager** role. Wait 10 minutes, then sign in again |
 | Quota error when deploying the model | Set a lower **Tokens per minute**, or deploy `gpt-5-mini` instead |
 | `RequestDisallowedByPolicy` | Ask your administrator to exempt the `foundry-workshop` resource group from the policy |
 | `KeyError: 'PROJECT_CONNECTION_STRING'` | Your `.env` file isn't in the `factory` folder |

@@ -12,7 +12,7 @@ Congratulations — you've built, instrumented, evaluated, and deployed a produc
 | 1 | **Build Agents** | Created an **Anomaly Detection Agent** (reads live sensor telemetry — temperature, vibration, pressure — and identifies machines operating outside safe thresholds) and a **Fault Diagnosis Agent** (determines root cause and recommends maintenance actions per machine type) |
 | 2 | **Monitor** | Enabled OpenTelemetry GenAI tracing — every model call, tool invocation, and token count is captured as a distributed trace in Application Insights |
 | 3 | **Evaluate** | Ran systematic LLM-as-judge evaluations across the full sensor dataset, producing repeatable coherence and fluency scores you can version-track across prompt changes |
-| 4 | **Production Workflow** | Wired both agents into an orchestrated pipeline in the Foundry portal — a stable, testable endpoint with run history that plant operators can inspect |
+| 4 | **Orchestrate and deploy** | Chained both agents with Microsoft Agent Framework, added a human approval before each work order, and deployed the orchestration to Foundry as a hosted agent |
 
 ### Skills you practiced
 
@@ -20,7 +20,8 @@ Congratulations — you've built, instrumented, evaluated, and deployed a produc
 - Grounding agents in real sensor telemetry via tool calls (function calling)
 - Distributed tracing for AI systems with OpenTelemetry
 - LLM-as-judge evaluation with the Azure AI Evaluation SDK
-- Multi-agent orchestration in the Foundry portal
+- Multi-agent orchestration with Microsoft Agent Framework, deployed as a Foundry hosted agent
+- Human-in-the-loop approval before an agent takes an action
 
 ---
 
