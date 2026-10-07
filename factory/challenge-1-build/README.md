@@ -84,6 +84,40 @@ python agents.py
 
 As the script runs, watch the terminal closely — you'll see each agent being created, then each machine from `sensor_data.json` being sent through the **Anomaly Detection Agent** first, and its output handed off to the **Fault Diagnosis Agent**. You'll see the raw agent responses printed for every machine, giving you a live view of how the two agents collaborate. Once it completes, head to the [Microsoft Foundry portal](https://ai.azure.com/nextgen), open your project, and navigate to **Agents** in the left sidebar — hit **Refresh** if the agents don't appear immediately, as it can take a few seconds for newly created agents to show up in the portal.
 
+## No `az login`? Build the agents in the portal
+
+`agents.py` needs `az login`, because an API key can't create agents. Build the same two agents in the [Foundry portal](https://ai.azure.com) instead. They don't call a tool, so you paste the sensor data into the chat.
+
+1. Select **Build → Agents → Create agent**, enter the name `anomaly-detection-agent`, and select **Create**.
+2. Select the **gpt-5.4** model, paste these instructions, then select **Save**:
+
+    ```text
+    You are an industrial sensor anomaly detection expert for TireForge Industries.
+    The user pastes sensor data for the plant's machines. Compare every reading with that machine's thresholds.
+    For each machine, report its name, ID, status (normal, warning or critical) and every out-of-spec reading
+    with its value, the threshold it breaks and the deviation. Be concise and structured.
+    ```
+
+3. Open [sensor_data.json](./sensor_data.json), copy all of it, paste it into the chat and send it.
+4. Create a second agent the same way, named `fault-diagnosis-agent`, with these instructions:
+
+    ```text
+    You are a mechanical fault diagnosis expert for TireForge Industries.
+    The user pastes an anomaly report. For each machine with anomalies:
+    1. Identify the most likely root cause:
+       - High temperature + high pressure: likely blockage or restricted flow
+       - High vibration alone: likely bearing wear, misalignment or imbalance
+       - High temperature + high vibration: likely bearing failure or lubrication issue
+       - Several sensors critical: compound failure, escalate immediately
+    2. Recommend specific maintenance actions.
+    3. Set urgency: IMMEDIATE (stop now), WITHIN 24H or MONITOR.
+    Format each machine as: LIKELY CAUSE, MAINTENANCE ACTIONS, URGENCY.
+    ```
+
+5. Copy the anomaly agent's reply, paste it into the `fault-diagnosis-agent` chat and send it.
+
+These two agents work for Challenges 2 and 3.
+
 ## Success Criteria
 
 - [ ] Anomaly Detection Agent correctly identifies the 2 warning + 1 critical machine

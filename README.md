@@ -58,6 +58,8 @@ Fill in the two values in `factory/.env` (see [PREREQUISITES.md](PREREQUISITES.m
 python factory/smoke_test.py
 ```
 
+Can't run `az login`? Set the optional `FOUNDRY_API_KEY` in `factory/.env` (section 10). The smoke test and the challenge 4 local run use the key, and challenges 1, 2 and 4 have **No `az login`?** portal steps for the rest.
+
 ## Lab challenges
 
 The full scenario is in [factory/README.md](factory/README.md).

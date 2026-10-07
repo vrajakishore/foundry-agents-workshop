@@ -772,6 +772,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
       <tr><td><code>DeploymentModelNotSupported</code></td><td>Model or version not offered in this region</td><td><code>az cognitiveservices model list --location &lt;region&gt;</code></td></tr>
       <tr><td><code>RequestDisallowedByPolicy</code></td><td>Azure Policy deny (region, network, tags)</td><td>Exempt the sandbox resource group, or add the required tags</td></tr>
       <tr><td><code>DefaultAzureCredential failed</code></td><td>Wrong tenant or not signed in</td><td><code>az login --tenant &lt;id&gt;</code>, then <code>az account set</code></td></tr>
+      <tr><td>Can't run <code>az login</code></td><td>Sign-in blocked</td><td><code>FOUNDRY_API_KEY</code> in <code>.env</code> + portal steps</td></tr>
       <tr><td><code>azd</code> uses the wrong account</td><td><code>azd</code> has its own sign-in</td><td><code>azd config set auth.useAzCliAuth true</code></td></tr>
       <tr><td><code>'project' is misspelled</code></td><td>Azure CLI older than 2.80</td><td><code>az upgrade</code></td></tr>
       <tr><td>Classic or hub screens</td><td>New Foundry toggle is off</td><td>Turn on <strong>New Foundry</strong> in the portal header</td></tr>

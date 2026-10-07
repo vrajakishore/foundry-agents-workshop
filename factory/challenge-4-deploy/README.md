@@ -38,6 +38,8 @@ All files are in the [factory-health-agent](./factory-health-agent/) folder.
 
 ## Part 1: Run it locally
 
+Part 1 works with `az login` or with `FOUNDRY_API_KEY` in `factory/.env`.
+
 ### Step 1: Review the code
 
 Open [factory_orchestration.py](./factory-health-agent/factory_orchestration.py) and find:
@@ -45,6 +47,7 @@ Open [factory_orchestration.py](./factory-health-agent/factory_orchestration.py)
 - **`check_thresholds`**: compares each machine's readings with its limits.
 - **`create_work_order`**: marked `approval_mode="always_require"`, so a person must approve each call.
 - **`build_workflow()`**: chains the two agents with `SequentialBuilder`. The diagnosis agent gets the anomaly report as text.
+- **`make_client()`**: signs in with Entra ID, or uses `FOUNDRY_API_KEY` when you set it. The hosted agent always uses Entra ID.
 
 ### Step 2: Run the health check
 
@@ -73,7 +76,7 @@ Run `python run_local.py` again and type `n`. The report now says the work order
 Foundry runs your code in a managed sandbox. You don't need Docker or a container registry.
 
 > [!IMPORTANT]
-> You need the **Foundry Project Manager** role on your project. If you don't have it, stop after Part 1.
+> You need the **Foundry Project Manager** role on your project and `az login`. An API key can't deploy agents. If either is missing, stop after Part 1.
 
 ### Step 4: Sign in
 

@@ -140,7 +140,9 @@ Open `factory/.env` and fill in these two values:
 - **`PROJECT_CONNECTION_STRING`:** in the Foundry portal, select **Home**. Copy the **Project endpoint**.
 - **`APPLICATIONINSIGHTS_CONNECTION_STRING`:** in the Azure portal (**https://portal.azure.com**), open **Resource groups → foundry-workshop**. Select your **Application Insights** resource, then copy the **Connection String** from the **Overview** page.
 
-Then run this check, which creates a test agent, asks it a question and deletes it:
+**Can't run `az login`?** If your administrator allows API keys, also set **`FOUNDRY_API_KEY`**: in the Foundry portal, select **Home** and copy the **Project API key**. A key only reaches the model, so for the labs that build agents you use the portal steps in each lab. Leave it empty if `az login` works.
+
+Then run this check, which creates a test agent, asks it a question and deletes it. With an API key, it only asks the model a question:
 
 ```powershell
 python factory/smoke_test.py
@@ -158,6 +160,7 @@ python factory/smoke_test.py
 | `RequestDisallowedByPolicy` | Ask your administrator to exempt the `foundry-workshop` resource group from the policy |
 | `KeyError: 'PROJECT_CONNECTION_STRING'` | Your `.env` file isn't in the `factory` folder |
 | `DefaultAzureCredential failed to retrieve a token` | Run `az login --tenant <tenant-id>` |
+| `AuthenticationTypeDisabled` when using an API key | API keys are turned off for your project. Empty `FOUNDRY_API_KEY` in `.env` and run `az login` |
 | Portal shows hub or "classic" screens | Turn on **New Foundry** at the top of the portal |
 
 ## After the workshop

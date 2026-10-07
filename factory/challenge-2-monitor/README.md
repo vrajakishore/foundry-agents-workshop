@@ -69,6 +69,9 @@ python monitor.py
 
 Once the script finishes, your traces are live. Explore them in the Azure Portal.
 
+> [!NOTE]
+> **No `az login`?** Skip `monitor.py`. Foundry traces portal chats automatically once Application Insights is connected. Open `anomaly-detection-agent` in the portal, send two or three messages in the chat, wait a few minutes, then continue with Step 1.
+
 ---
 
 ### Step 1: Microsoft Foundry Portal

@@ -20,4 +20,7 @@ python factory/smoke_test.py
 - [ ] Your project opens in the Foundry portal and **gpt-5.4** is deployed.
 - [ ] `python factory/smoke_test.py` prints `Smoke test passed.`
 
+> [!NOTE]
+> If you set `FOUNDRY_API_KEY` in `.env` instead of using `az login`, the smoke test checks the model only. The agent you created in the portal (prerequisites, section 8) shows that agents work. In Challenges 1, 2 and 4, follow the **No `az login`?** steps.
+
 If something fails, see **If something fails** in [PREREQUISITES.md](../../PREREQUISITES.md).

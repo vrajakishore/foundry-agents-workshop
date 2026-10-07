@@ -10,6 +10,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Annotated, Literal
+from urllib.parse import urlparse
 
 from agent_framework import Agent, AgentExecutor, Message, Workflow, tool
 from agent_framework.foundry import FoundryChatClient
@@ -103,13 +104,22 @@ def text_only(conversation: list[Message]) -> list[Message]:
     return [Message(m.role, [m.text], author_name=m.author_name) for m in conversation if m.role in ("user", "assistant") and m.text]
 
 
+def make_client():
+    """Sign in with Entra ID by default. If FOUNDRY_API_KEY is set (local runs only), call the model with the key instead."""
+    endpoint = os.getenv("FOUNDRY_PROJECT_ENDPOINT") or os.environ["PROJECT_CONNECTION_STRING"]
+    model = os.getenv("AZURE_AI_MODEL_DEPLOYMENT_NAME") or os.getenv("MODEL_DEPLOYMENT_NAME", "gpt-5.4")
+    api_key = os.getenv("FOUNDRY_API_KEY")
+    if api_key:
+        from agent_framework.openai import OpenAIChatClient
+
+        resource = urlparse(endpoint).hostname.split(".")[0]
+        return OpenAIChatClient(model=model, api_key=api_key, base_url=f"https://{resource}.openai.azure.com/openai/v1/")
+    return FoundryChatClient(project_endpoint=endpoint, model=model, credential=DefaultAzureCredential())
+
+
 def build_workflow() -> Workflow:
     """Build the two agents and chain them in a sequential orchestration."""
-    client = FoundryChatClient(
-        project_endpoint=os.getenv("FOUNDRY_PROJECT_ENDPOINT") or os.environ["PROJECT_CONNECTION_STRING"],
-        model=os.getenv("AZURE_AI_MODEL_DEPLOYMENT_NAME") or os.getenv("MODEL_DEPLOYMENT_NAME", "gpt-5.4"),
-        credential=DefaultAzureCredential(),
-    )
+    client = make_client()
     anomaly_agent = Agent(
         client=client,
         name="anomaly-detection-agent",
