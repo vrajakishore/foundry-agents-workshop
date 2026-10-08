@@ -91,7 +91,7 @@ Sign in to the Foundry portal at **https://ai.azure.com** with your work account
 
 1. Select **Build** in the upper-right navigation, then **Agents** in the left pane.
 2. Select the **Traces** tab, then select **Connect**.
-3. Select **Create new**, choose the **`foundry-workshop`** resource group, and finish the wizard.
+3. Select **Create new**, choose the **`foundry-workshop`** resource group, name it `<your-alias>-appinsights`, and finish the wizard.
 
 If you don't see **Connect**, select **Manage → Project details → Connected resources → Add connection → Application Insights** instead.
 
@@ -138,7 +138,7 @@ cp factory/.env.template factory/.env
 Open `factory/.env` and fill in these two values:
 
 - **`PROJECT_CONNECTION_STRING`:** in the Foundry portal, select **Home**. Copy the **Project endpoint**.
-- **`APPLICATIONINSIGHTS_CONNECTION_STRING`:** in the Azure portal (**https://portal.azure.com**), open **Resource groups → foundry-workshop**. Select your **Application Insights** resource, then copy the **Connection String** from the **Overview** page.
+- **`APPLICATIONINSIGHTS_CONNECTION_STRING`:** in the Azure portal (**https://portal.azure.com**), open **Resource groups → foundry-workshop**. Select `<your-alias>-appinsights`, then copy the **Connection String** from the **Overview** page.
 
 **Can't run `az login`?** If your administrator allows API keys, also set **`FOUNDRY_API_KEY`**: in the Foundry portal, select **Home** and copy the **Project API key**. A key only reaches the model, so for the labs that build agents you use the portal steps in each lab. Leave it empty if `az login` works.
 
