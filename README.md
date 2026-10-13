@@ -52,7 +52,7 @@ az login
 cp factory/.env.template factory/.env
 ```
 
-Fill in the two values in `factory/.env` (see [PREREQUISITES.md](PREREQUISITES.md), section 10), then run:
+Fill in the two values in `factory/.env` (see [PREREQUISITES.md](PREREQUISITES.md), section 10). Use the endpoint of **your own** project (`<your-alias>-workshop`): everyone shares the resource group, but not the project. Then run:
 
 ```powershell
 python factory/smoke_test.py

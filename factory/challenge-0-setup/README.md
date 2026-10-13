@@ -6,9 +6,9 @@ You completed the setup before the workshop by following [PREREQUISITES.md](../.
 
 ## Check
 
-1. Open the [Foundry portal](https://ai.azure.com) with **New Foundry** turned on, and select your project.
+1. Open the [Foundry portal](https://ai.azure.com) with **New Foundry** turned on, and select **your own** project, `<your-alias>-workshop`. The resource group holds your colleagues' projects too, so check the name.
 2. Select **Build → Models** and check that **gpt-5.4** is deployed.
-3. Check that `factory/.env` exists and has your **project endpoint** and **Application Insights connection string**.
+3. Check that `factory/.env` exists and has your **project endpoint** and **Application Insights connection string**. The endpoint must end with `/api/projects/<your-alias>-workshop`.
 4. From the repository root, run:
 
 ```bash
@@ -17,7 +17,8 @@ python factory/smoke_test.py
 
 ## Success criteria
 
-- [ ] Your project opens in the Foundry portal and **gpt-5.4** is deployed.
+- [ ] Your project (`<your-alias>-workshop`) opens in the Foundry portal and **gpt-5.4** is deployed.
+- [ ] The endpoint in `factory/.env` points to your own project.
 - [ ] `python factory/smoke_test.py` prints `Smoke test passed.`
 
 > [!NOTE]

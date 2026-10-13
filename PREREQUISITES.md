@@ -53,6 +53,8 @@ az role assignment create --role "eadc314b-1a2d-4efa-be10-5d325db5065e" --assign
 az role assignment create --role "Cognitive Services Usages Reader" --assignee-object-id $group --assignee-principal-type Group --scope "/subscriptions/$sub"
 ```
 
+These roles apply to the whole resource group, so every participant can open every other participant's project. The labs assume **one project per participant**, so ask everyone to name their project and Application Insights resource with their alias (sections 5 and 7).
+
 Role assignments can take up to 10 minutes to apply. Then send participants the **resource group name** (`foundry-workshop`) and **region** (`swedencentral`).
 
 ## 4. Network
@@ -73,11 +75,13 @@ Sign in to the Foundry portal at **https://ai.azure.com** with your work account
 ## 5. Create your project
 
 1. In the upper-left, select the project name, then select **Create new project**.
-2. Enter a project name, for example `<your-alias>-workshop`.
+2. Enter the project name `<your-alias>-workshop`, for example `asmith-workshop`. Use your own alias so the name is unique.
 3. Expand **Advanced options**:
     - **Resource group:** select **`foundry-workshop`**. Don't create a new one, because you only have access to this one.
     - **Location:** select **Sweden Central**, or the region your administrator gave you.
 4. Select **Create**. Creation takes a few minutes.
+
+> **Use only your own project.** Everyone creates a project in the same `foundry-workshop` resource group, so the Foundry portal and the Azure portal also list your colleagues' projects and Application Insights resources. Open only the ones that start with your alias. The labs create agents with fixed names such as `anomaly-detection-agent`, so two people in one project overwrite each other's agents, traces and evaluation runs. Never reuse a colleague's project, even if you can open it.
 
 ## 6. Deploy the model
 
@@ -137,7 +141,7 @@ cp factory/.env.template factory/.env
 
 Open `factory/.env` and fill in these two values:
 
-- **`PROJECT_CONNECTION_STRING`:** in the Foundry portal, select **Home**. Copy the **Project endpoint**.
+- **`PROJECT_CONNECTION_STRING`:** in the Foundry portal, select **Home**. Copy the **Project endpoint**. It must end with `/api/projects/<your-alias>-workshop`. If it shows another name, you're in a colleague's project: select your own project in the upper-left and copy the endpoint again.
 - **`APPLICATIONINSIGHTS_CONNECTION_STRING`:** in the Azure portal (**https://portal.azure.com**), open **Resource groups → foundry-workshop**. Select `<your-alias>-appinsights`, then copy the **Connection String** from the **Overview** page.
 
 **Can't run `az login`?** If your administrator allows API keys, also set **`FOUNDRY_API_KEY`**: in the Foundry portal, select **Home** and copy the **Project API key**. A key only reaches the model, so for the labs that build agents you use the portal steps in each lab. Leave it empty if `az login` works.
@@ -159,6 +163,7 @@ python factory/smoke_test.py
 | Quota error when deploying the model | Set a lower **Tokens per minute**, or deploy `gpt-5-mini` instead |
 | `RequestDisallowedByPolicy` | Ask your administrator to exempt the `foundry-workshop` resource group from the policy |
 | `KeyError: 'PROJECT_CONNECTION_STRING'` | Your `.env` file isn't in the `factory` folder |
+| You see agents, traces or evaluations you didn't create | You're in a colleague's project. Select your own `<your-alias>-workshop` project in the portal and put its endpoint in `factory/.env` |
 | `DefaultAzureCredential failed to retrieve a token` | Run `az login --tenant <tenant-id>` |
 | `AuthenticationTypeDisabled` when using an API key | API keys are turned off for your project. Empty `FOUNDRY_API_KEY` in `.env` and run `az login` |
 | Portal shows hub or "classic" screens | Turn on **New Foundry** at the top of the portal |

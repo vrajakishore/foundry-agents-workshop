@@ -56,7 +56,7 @@ APPLICATIONINSIGHTS_CONNECTION_STRING=InstrumentationKey=xxx;...
 
 You connected Application Insights to your project in the prerequisites (section 7). To confirm it, open the [Microsoft Foundry portal](https://ai.azure.com), select your project, then select **Build → Agents → Traces**. You should see your Application Insights resource connected.
 
-If you see a **"Create or connect an App Insights resource to get started"** banner, select **Connect**, choose your Application Insights resource in the `foundry-workshop` resource group, and confirm. You only need to do this once.
+If you see a **"Create or connect an App Insights resource to get started"** banner, select **Connect**, choose your Application Insights resource (`<your-alias>-appinsights`) in the `foundry-workshop` resource group, and confirm. You only need to do this once.
 
 ## Get Started
 
@@ -101,7 +101,7 @@ Once the script finishes, your traces are live. Explore them in the Azure Portal
 
 ### Step 2 - Application Insights
 
-1. Go to [portal.azure.com](https://portal.azure.com) → search for **Application Insights** → open `foundry-hack-insights-<suffix>`
+1. Go to [portal.azure.com](https://portal.azure.com) → **Resource groups** → `foundry-workshop` → open **your own** `<your-alias>-appinsights` (the one you created in the prerequisites). The group also lists your colleagues' resources, so check the name.
 2. Left sidebar → **Investigate** → **Search**
 
 ![Application Insights Search](./images/screen21.png)

@@ -100,7 +100,7 @@ Answer the prompts:
 
 | Prompt | Answer |
 |--------|--------|
-| Foundry project | Use an existing Foundry project, then pick your subscription and project |
+| Foundry project | Use an existing Foundry project, then pick your subscription and **your own** project (`<your-alias>-workshop`) |
 | Model | Use an existing model deployment, then pick `gpt-5.4` |
 | Protocol | `responses` |
 | How to deploy | Source Code (ZIP upload) |

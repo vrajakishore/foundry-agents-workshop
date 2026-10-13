@@ -411,11 +411,11 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
     <div><strong>Region and quota</strong>≥ 10K TPM of <code>gpt-5.4</code> per person; <code>gpt-5-mini</code> as fallback</div>
     <div><strong>Workstation</strong>Codespaces, or Python 3.10+, Azure CLI 2.80+, azd 1.27.1+, Git</div>
     <div><strong>Network</strong><code>ai.azure.com</code>, <code>*.services.ai.azure.com</code>, GitHub, PyPI</div>
-    <div><strong>Provisioned</strong>Project + model + App Insights in your resource group</div>
+    <div><strong>Provisioned</strong>Your own project (<code>&lt;alias&gt;-workshop</code>), model, App Insights</div>
     <div><strong>Smoke test</strong>Playground replies; <code>smoke_test.py</code> passes</div>
   </div>
   <p class="src">Full checklist: <a href="https://github.com/vrajakishore/foundry-agents-workshop/blob/main/PREREQUISITES.md" target="_blank">PREREQUISITES.md</a> · <a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank">RBAC for Foundry</a></p>
-  <aside class="notes">If you see PermissionDenied while creating an agent, the Foundry Project Manager role is usually missing. Role assignments can take up to 10 minutes to apply; sign out and in again.</aside>
+  <aside class="notes">If you see PermissionDenied while creating an agent, the Foundry Project Manager role is usually missing. Role assignments can take up to 10 minutes to apply; sign out and in again. Everyone shares the resource group but not the project: use only your own project, named with your alias. The labs create agents with fixed names, so two people in one project overwrite each other's agents.</aside>
 </section>
 
 <!-- 4 -->
@@ -775,6 +775,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
       <tr><td>Can't run <code>az login</code></td><td>Sign-in blocked</td><td><code>FOUNDRY_API_KEY</code> in <code>.env</code> + portal steps</td></tr>
       <tr><td><code>azd</code> uses the wrong account</td><td><code>azd</code> has its own sign-in</td><td><code>azd config set auth.useAzCliAuth true</code></td></tr>
       <tr><td><code>'project' is misspelled</code></td><td>Azure CLI older than 2.80</td><td><code>az upgrade</code></td></tr>
+      <tr><td>Agents or traces you didn't create</td><td>In a colleague's project</td><td>Switch to your own project</td></tr>
       <tr><td>Classic or hub screens</td><td>New Foundry toggle is off</td><td>Turn on <strong>New Foundry</strong> in the portal header</td></tr>
     </tbody>
   </table>
