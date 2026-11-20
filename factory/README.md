@@ -23,7 +23,7 @@ Each machine emits real-time sensor data: temperature, pressure, vibration, and 
 Build an AI agent system that:
 
 1. **Detects anomalies** — Compares sensor readings against thresholds
-2. **Diagnoses faults** — Reasons about root causes from anomaly patterns
+2. **Diagnoses faults** — Reasons about root causes from anomaly patterns, grounded in the plant's manuals
 3. **Reports health** — Produces a consolidated factory health report
 4. **Opens work orders** — Only after a maintenance supervisor approves
 
@@ -33,17 +33,23 @@ Build an AI agent system that:
 |---|-----------|---------------|------|
 | 0 | [Verify setup](./challenge-0-setup/README.md) | Check the project, model and `.env` you created in the prerequisites | 5 min |
 | 1 | [Build Agents](./challenge-1-build/README.md) | Create Anomaly Detection + Fault Diagnosis agents | 30 min |
+| 1b | [Ground in knowledge](./challenge-1b-knowledge/README.md) | Connect a Foundry IQ knowledge base to the Fault Diagnosis agent (full day) | 60 min |
+| 1c | [Tools, MCP and approvals](./challenge-1c-tools/README.md) | Analyse sensor history with Code Interpreter and approve MCP tool calls (full day) | 60 min |
 | 2 | [Monitor](./challenge-2-monitor/README.md) | Enable GenAI tracing with Application Insights | 20 min |
-| 3 | [Evaluate](./challenge-3-evaluate/README.md) | Run systematic quality evaluations | 30 min |
-| 4 | [Orchestrate and deploy](./challenge-4-deploy/README.md) | Chain both agents with Agent Framework and deploy them as a hosted agent | 20 min |
+| 3 | [Evaluate](./challenge-3-evaluate/README.md) | Run quality evaluations, check correctness and red-team the agent | 30–45 min |
+| 4 | [Orchestrate and deploy](./challenge-4-deploy/README.md) | Chain both agents with Agent Framework and deploy them as a hosted agent | 20–75 min |
+
+The half-day workshop skips Challenges 1b and 1c and Steps 4–5 of Challenge 3.
 
 ## Why the Challenges Are in This Order
 
 **Build first.** An agent with a vague system prompt or missing tools will hallucinate plausible-sounding diagnoses. For a tire manufacturing plant, that's not an academic problem — it means maintenance crews chasing phantom faults, or missing real ones until a machine fails mid-shift. The `check_thresholds` tool grounds the Anomaly Agent in actual machine specs, not general LLM knowledge about what "normal" vibration looks like for an extruder.
 
+**Then ground and extend.** The Fault Diagnosis Agent can only name the right procedure and part numbers if it can read the plant's manuals and incident history. Foundry IQ gives it that knowledge. Code Interpreter and MCP give the agents more tools, and approvals keep a person in control of the tools you don't own.
+
 **Then monitor.** When the Fault Diagnosis Agent recommends pulling CP-003 offline, did it actually examine the sensor readings you fed it? Did `check_thresholds` get called, or did the agent reason from context alone? Application Insights traces answer that. Without them, the only signal you have is a machine failure that should have been caught earlier.
 
-**Then evaluate.** Tracing tells you the agent ran. Evaluation tells you it ran correctly. The curated test dataset gives you a repeatable score to compare before and after any prompt change or model swap — so you catch regressions before they reach the production floor.
+**Then evaluate.** Tracing tells you the agent ran. Evaluation tells you it ran correctly. The curated test dataset gives you a repeatable score to compare before and after any prompt change or model swap — so you catch regressions before they reach the production floor. Red teaming shows what happens when someone tries to misuse the agent.
 
 **Then deploy.** The hosted agent turns what you built in scripts into something the maintenance team can actually hand off: one endpoint that runs the whole health check, asks a supervisor before it opens a work order, and keeps a trace of every diagnosis. That's the gap between a demo and a tool someone will actually trust before scheduling an unplanned maintenance window.
 
@@ -66,11 +72,11 @@ The `check_thresholds` function in this lab uses local mock data. In production 
 - A `lookup_spare_parts` tool checking inventory availability before recommending a replacement
 - Replace the simulated `create_work_order` tool with a call that opens a real ticket in ServiceNow or SAP PM
 
-**Build a knowledge base**
-Upload TireForge’s machine manuals, supplier spec sheets, and historical incident reports to a Microsoft Foundry knowledge base. Attach it to the Fault Diagnosis Agent as a File Search tool so its recommendations are grounded in documented procedures rather than general LLM knowledge.
+**Grow the knowledge base**
+Challenge 1b grounds the Fault Diagnosis Agent in three sample documents. In production, add TireForge's real manuals, supplier spec sheets and incident reports as Foundry IQ knowledge sources, for example from SharePoint, so the knowledge base respects each user's permissions.
 
 **Integrate evaluations into CI/CD**
-Run your evaluation dataset automatically on every pull request or deployment. If the coherence or relevance score drops below a threshold (e.g. 3.5 out of 5), block the release. This prevents a system prompt edit or model update from silently degrading diagnosis quality in production.
+Run your evaluation dataset automatically on every pull request or deployment. Use `score_classification.py --min-accuracy 0.9` from Challenge 3 as a gate, and block the release if the coherence score drops below a threshold (e.g. 3.5 out of 5). This prevents a system prompt edit or model update from silently degrading diagnosis quality in production.
 
 **Explore advanced agent patterns**
 - **Parallelise** the anomaly checks across all 5 machines simultaneously instead of sequentially
