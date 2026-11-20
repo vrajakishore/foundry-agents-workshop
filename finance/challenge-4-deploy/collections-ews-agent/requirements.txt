@@ -1,0 +1,6 @@
+agent-framework-core==1.19.0
+agent-framework-foundry==1.13.1
+agent-framework-foundry-hosting==1.0.0b260918
+agent-framework-orchestrations==1.2.0
+azure-identity>=1.19.0
+python-dotenv>=1.0.0
