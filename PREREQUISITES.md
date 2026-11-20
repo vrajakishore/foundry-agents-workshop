@@ -26,6 +26,8 @@ az group create --name foundry-workshop --location swedencentral
 - **Model:** each participant deploys `gpt-5.4`, Global Standard, with **10K tokens per minute**. For example, 15 participants need **150K TPM** in the region.
 - **Fallback model:** `gpt-5.4-mini`, with the same quota. `gpt-5-mini` also works, but it retires earlier.
 - **Full-day lab:** the AI Red Teaming Agent (Lab 4) runs only in some regions. `swedencentral` and `eastus2` are supported. `westeurope` is not. Check the [region list](https://learn.microsoft.com/azure/foundry/how-to/develop/run-scans-ai-red-teaming-agent) before you choose another region.
+- **Policy allows only India regions?** Use `southindia`. Before you create resources, open **Manage → Quota** in the Foundry portal and check that `gpt-5.4` has quota there. A Global Standard deployment can process prompts in any Azure region. A Data Zone Standard deployment keeps processing inside the Asia Pacific data zone and costs about 10% more. If the AI Red Teaming Agent isn't supported in the region, the facilitator shows that step as a demo.
+- **Finance track, Challenge 5 (optional):** participants also deploy `gpt-5.4-mini` with **10K TPM** to compare two models. Plan the extra quota.
 
 Check your available quota:
 
@@ -74,15 +76,19 @@ If your tenant blocks **device-code sign-in**, participants can't sign in from G
 
 ## 4b. Full-day lab only: knowledge for Lab 2
 
-Lab 2 grounds the fault diagnosis agent in TireForge maintenance documents with **Foundry IQ**. Foundry IQ uses **Azure AI Search**. Create one search service and one storage account for all participants.
+Lab 2 grounds an agent in company documents with **Foundry IQ**: TireForge maintenance documents in the factory track, or Woodgrove Finance policies in the finance track. Foundry IQ uses **Azure AI Search**. Create one search service and one storage account for all participants.
 
 1. Create an **Azure AI Search** service in the `foundry-workshop` resource group:
     - **Name:** `<org>-workshop-search` (it must be unique in Azure).
     - **Region:** the workshop region.
     - **Pricing tier:** **Basic** or higher. The Free tier doesn't support the lab.
     - After creation, open **Settings → Semantic ranker** and select the **Free** plan.
-2. Create a **storage account** in the same resource group, for example `<org>workshopkb`. Create a blob container named `tireforge-knowledge`.
-3. Upload the three files from [factory/challenge-1b-knowledge/knowledge](factory/challenge-1b-knowledge/knowledge) to the container.
+2. Create a **storage account** in the same resource group, for example `<org>workshopkb`. Create a blob container for your track:
+    - Factory track: `tireforge-knowledge`
+    - Finance track: `woodgrove-knowledge`
+3. Upload the three files for your track to the container:
+    - Factory track: [factory/challenge-1b-knowledge/knowledge](factory/challenge-1b-knowledge/knowledge)
+    - Finance track: [finance/challenge-1b-knowledge/knowledge](finance/challenge-1b-knowledge/knowledge)
 
 ```powershell
 az search service create --name <org>-workshop-search --resource-group foundry-workshop --location swedencentral --sku basic --semantic-search free
@@ -90,6 +96,15 @@ az storage account create --name <org>workshopkb --resource-group foundry-worksh
 az storage container create --name tireforge-knowledge --account-name <org>workshopkb --auth-mode login
 az storage blob upload-batch --destination tireforge-knowledge --source factory/challenge-1b-knowledge/knowledge --account-name <org>workshopkb --auth-mode login
 ```
+
+For the finance track, replace the last two commands with:
+
+```powershell
+az storage container create --name woodgrove-knowledge --account-name <org>workshopkb --auth-mode login
+az storage blob upload-batch --destination woodgrove-knowledge --source finance/challenge-1b-knowledge/knowledge --account-name <org>workshopkb --auth-mode login
+```
+
+If your region is not `swedencentral`, change `--location` in the commands.
 
 > **Note:** The `upload-batch` command needs **Storage Blob Data Contributor** on the storage account for your own account. If you don't have it, upload the files in the Azure portal instead.
 
@@ -121,6 +136,7 @@ Sign in to the Foundry portal at **https://ai.azure.com** with your work account
 3. Select **Deploy → Custom settings**.
 4. Keep the deployment name **gpt-5.4**, set **Deployment type** to **Global Standard** and **Tokens per minute** to **10K**, then select **Deploy**.
 5. The playground opens. Send *"Hello"* and check that you get a reply.
+6. **Finance track only (optional):** repeat steps 2 to 4 for **gpt-5.4-mini**. Challenge 5 compares the cost and accuracy of the two models.
 
 ## 7. Connect tracing
 
