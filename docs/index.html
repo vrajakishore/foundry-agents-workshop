@@ -352,6 +352,16 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
 .reveal .res { list-style: none; margin: 0; padding: 0; font-size: 0.66em; }
 .reveal .res li { margin-bottom: 22px; }
 
+/* Finance track (?track=finance) */
+.reveal table.t.compact { font-size: 0.47em; }
+.reveal table.t.compact th, .reveal table.t.compact td { padding: 7px 14px; }
+.reveal table.t.compact tr.brk td { padding-top: 3px; padding-bottom: 3px; font-weight: 400; color: var(--muted); background: rgba(232,131,58,0.08); }
+.reveal table.t.wrap td:first-child { white-space: normal; }
+.reveal .mc.crit { border: 2px solid var(--coral); background: #fdf1ef; }
+.reveal .limits { margin: 12px 0 0; font-size: 0.46em; color: var(--muted); }
+.reveal .cost-cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 26px; align-items: start; }
+.reveal .cost-cols td:last-child { text-align: right; font-family: 'Space Mono', monospace; }
+
 /* Chrome */
 .reveal .progress { height: 5px; color: var(--accent); }
 .reveal .slide-number { right: auto; left: 26px; bottom: 18px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.85); color: var(--muted); font-family: 'Space Mono', monospace; font-size: 12px; }
@@ -374,7 +384,7 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
 </section>
 
 <!-- 2 -->
-<section>
+<section data-track="factory">
   <h3>Today: three hours, eight sessions</h3>
   <div class="agenda">
     <div class="ag"><span class="n">1</span><span class="t">0:00 · 50 min</span><h4>Foundry walkthrough</h4><p>Models, agents, tools, guardrails + showcase demos</p></div>
@@ -388,6 +398,29 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
   </div>
   <div class="legend"><span><i style="background:var(--accent)"></i>Talk and demo</span><span><i style="background:var(--amber)"></i>Hands-on in your own project</span><span>☕ Break 1:35–1:45, after session 3</span></div>
   <aside class="notes">The agenda. Sessions 1 and 4 are portal walkthroughs and demos. Sessions 2, 3, 5 and 6 are hands-on in your own project. Sessions 7 and 8 are discussion.</aside>
+</section>
+
+<!-- 2 (finance track) -->
+<section data-track="finance">
+  <h3>Today: a full-day build lab</h3>
+  <table class="t compact">
+    <thead><tr><th>Time</th><th>Session</th><th>What you do</th></tr></thead>
+    <tbody>
+      <tr><td>09:00</td><td>Welcome and environment check</td><td>Check your project, model and <code>.env</code> (Challenge 0)</td></tr>
+      <tr><td>09:30</td><td>Platform tour and model choice</td><td>Models, agents, tools, knowledge and guardrails</td></tr>
+      <tr><td>10:15</td><td>Lab 1 · First agents in code <span class="badge amber">Lab</span></td><td>Early-warning and advisor agents with a function tool</td></tr>
+      <tr class="brk"><td>11:00</td><td>Break</td><td></td></tr>
+      <tr><td>11:15</td><td>Lab 2 · Policy knowledge <span class="badge amber">Lab</span></td><td>Foundry IQ knowledge base: answers that cite the policy</td></tr>
+      <tr class="brk"><td>12:15</td><td>Lunch</td><td></td></tr>
+      <tr><td>13:00</td><td>Lab 3 · Tools and approvals <span class="badge amber">Lab</span></td><td>Code Interpreter on account history; an MCP call that waits for you</td></tr>
+      <tr><td>14:00</td><td>Lab 4 · Trace and evaluate <span class="badge amber">Lab</span></td><td>Traces, correctness, a fairness check and a red-team scan</td></tr>
+      <tr class="brk"><td>14:45</td><td>Break</td><td></td></tr>
+      <tr><td>15:00</td><td>Lab 5 · Multi-agent orchestration <span class="badge amber">Lab</span></td><td>A manager approves each collections case; deploy as a hosted agent</td></tr>
+      <tr><td>15:45</td><td>Security, production and cost</td><td>Responsible AI in lending; what the solution costs each month</td></tr>
+      <tr><td>16:15</td><td>Use cases and next steps</td><td>Shape your first pilot. Name one owner</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">The full-day agenda for the finance track. Labs 1 to 5 are hands-on in your own project. The cost session uses Challenge 5. If there is a second day, participants deploy the hosted agent themselves and adapt a lab to their own use case.</aside>
 </section>
 
 <!-- 3 -->
@@ -431,12 +464,12 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
 <section>
   <h3>From a chatbot that answers to an agent that acts</h3>
   <div class="grid4">
-    <div class="tk-card"><div class="ico">📡</div><h4>Live data</h4><p class="tk-sub">Reads the system, not just a document</p><p class="tk-before"><strong>Chatbot:</strong> answers from a PDF you uploaded</p><p class="tk-after"><strong>Agent:</strong> calls tools for current sensor and ERP data</p></div>
+    <div class="tk-card"><div class="ico">📡</div><h4>Live data</h4><p class="tk-sub">Reads the system, not just a document</p><p class="tk-before"><strong>Chatbot:</strong> answers from a PDF you uploaded</p><p data-track="factory" class="tk-after"><strong>Agent:</strong> calls tools for current sensor and ERP data</p><p data-track="finance" class="tk-after"><strong>Agent:</strong> calls tools for current loan, repayment and bureau data</p></div>
     <div class="tk-card"><div class="ico">🧮</div><h4>Computes</h4><p class="tk-sub">Numbers come from code, not memory</p><p class="tk-before"><strong>Chatbot:</strong> guesses plausible numbers</p><p class="tk-after"><strong>Agent:</strong> runs Python and threshold checks to get them</p></div>
-    <div class="tk-card"><div class="ico">🛠️</div><h4>Acts</h4><p class="tk-sub">With a human gate where it matters</p><p class="tk-before"><strong>Chatbot:</strong> stops at a suggestion</p><p class="tk-after"><strong>Agent:</strong> raises the work order after a supervisor approves</p></div>
+    <div class="tk-card"><div class="ico">🛠️</div><h4>Acts</h4><p class="tk-sub">With a human gate where it matters</p><p class="tk-before"><strong>Chatbot:</strong> stops at a suggestion</p><p data-track="factory" class="tk-after"><strong>Agent:</strong> raises the work order after a supervisor approves</p><p data-track="finance" class="tk-after"><strong>Agent:</strong> opens the collections case after a manager approves</p></div>
     <div class="tk-card"><div class="ico">🔍</div><h4>Accountable</h4><p class="tk-sub">You can see and score every step</p><p class="tk-before"><strong>Chatbot:</strong> no record of why it answered</p><p class="tk-after"><strong>Agent:</strong> every tool call is traced and evaluated</p></div>
   </div>
-  <aside class="notes">Grounding in documents appears once, using Foundry IQ. The main pattern is agents that read sensor data, decide and trigger an action, with a human approval step.</aside>
+  <aside class="notes">Grounding in documents appears once, using Foundry IQ. The main pattern is agents that read <span data-track="factory">sensor data</span><span data-track="finance">loan account data</span>, decide and trigger an action, with a human approval step.</aside>
 </section>
 
 <!-- 6 -->
@@ -461,9 +494,9 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
   <h3>Models: a dropdown, not a rewrite</h3>
   <div class="router">
     <div class="q">
-      <div class="qb">"Is CP-003 above its vibration limit?"</div>
-      <div class="qb">"Summarise last shift's alarms"</div>
-      <div class="qb">"Why do MX-001 and EX-002 drift together after maintenance?"</div>
+      <div data-track="factory" class="qb">"Is CP-003 above its vibration limit?"</div><div data-track="finance" class="qb">"Is UBL-1003 above its DPD limit?"</div>
+      <div data-track="factory" class="qb">"Summarise last shift's alarms"</div><div data-track="finance" class="qb">"Summarise this month's bounced EMIs"</div>
+      <div data-track="factory" class="qb">"Why do MX-001 and EX-002 drift together after maintenance?"</div><div data-track="finance" class="qb">"Why do credit enquiries rise months before the first missed EMI?"</div>
     </div>
     <div class="arr">→</div>
     <div class="hub"><h4>Model Router</h4><p>One deployment. Routes each request to the most cost-effective model that meets the quality bar.</p></div>
@@ -487,8 +520,8 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
 <section>
   <h3>Three ways to build an agent, one runtime</h3>
   <div class="grid3">
-    <div class="card amber"><div class="ico">📝</div><h4>Prompt agent</h4><p>Instructions + model + tools, defined as configuration. Built in the portal or with the SDK. Every save is a new <strong>version</strong>, and Foundry runs it for you.</p><p class="here">Lab: anomaly + diagnosis agents</p></div>
-    <div class="card violet"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>Real-time speech through Voice Live, with the same tools as a text agent. Telephony and Teams channels.</p><p class="here">Demo: a technician speaks in their own language</p></div>
+    <div class="card amber"><div class="ico">📝</div><h4>Prompt agent</h4><p>Instructions + model + tools, defined as configuration. Built in the portal or with the SDK. Every save is a new <strong>version</strong>, and Foundry runs it for you.</p><p data-track="factory" class="here">Lab: anomaly + diagnosis agents</p><p data-track="finance" class="here">Lab: early-warning + advisor agents</p></div>
+    <div class="card violet"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>Real-time speech through Voice Live, with the same tools as a text agent. Telephony and Teams channels.</p><p data-track="factory" class="here">Demo: a technician speaks in their own language</p><p data-track="finance" class="here">Demo: a borrower asks about an EMI in their own language</p></div>
     <div class="card green"><div class="ico">📦</div><h4>Hosted agent</h4><p>Your code and framework (Microsoft Agent Framework, LangGraph and others) in a container, with a managed endpoint, scaling and identity.</p><p class="here">Lab: the multi-agent orchestration, deployed with <code>azd ai agent</code></p></div>
   </div>
   <div class="callout">Start with a prompt agent. Move to hosted only when you need custom orchestration.</div>
@@ -499,7 +532,7 @@ html.print-pdf .reveal .slides .pdf-page section.title-slide, html.print-pdf .re
 <section>
   <h3>Your first agent, in code</h3>
   <div class="code-cols">
-    <pre style="font-size:0.45em"><code class="language-python" data-trim data-noescape>
+    <pre data-track="factory" style="font-size:0.45em"><code class="language-python" data-trim data-noescape>
 project = AIProjectClient(
     endpoint=PROJECT_ENDPOINT,
     credential=DefaultAzureCredential(),
@@ -521,6 +554,28 @@ response = openai.responses.create(
 )
 print(response.output_text)
     </code></pre>
+    <pre data-track="finance" style="font-size:0.45em"><code class="language-python" data-trim data-noescape>
+project = AIProjectClient(
+    endpoint=PROJECT_ENDPOINT,
+    credential=DefaultAzureCredential(),
+)
+openai = project.get_openai_client()
+
+agent = project.agents.create_version(
+    agent_name="collections-advisor",
+    definition=PromptAgentDefinition(
+        model="gpt-5.4",
+        instructions="You advise on collections for retail loans.",
+        tools=[CodeInterpreterTool()],
+    ),
+)
+
+response = openai.responses.create(
+    input="UBL-1003: 46 days past due, 4 bounces. Next step?",
+    extra_body={"agent_reference": {"name": agent.name, "type": "agent_reference"}},
+)
+print(response.output_text)
+    </code></pre>
     <div class="steps">
       <div class="step"><span class="num">1</span><strong>Connect</strong> to the project with Microsoft Entra ID. No keys.</div>
       <div class="step"><span class="num">2</span><strong>Define</strong> the agent: model, instructions, tools. Each call creates a new version.</div>
@@ -529,7 +584,7 @@ print(response.output_text)
     </div>
   </div>
   <p class="code-link"><a href="https://learn.microsoft.com/azure/foundry/agents/quickstarts/prompt-agent" target="_blank">📎 Quickstart: create a prompt agent</a> · package <code>azure-ai-projects</code> 2.x</p>
-  <aside class="notes">This is the pattern used throughout the lab. DefaultAzureCredential means no API keys anywhere. The lab's agents.py uses the same pattern with a check_thresholds function tool.</aside>
+  <aside class="notes">This is the pattern used throughout the lab. DefaultAzureCredential means no API keys anywhere. The lab's agents.py uses the same pattern with a <span data-track="factory">check_thresholds</span><span data-track="finance">check_account_signals</span> function tool.</aside>
 </section>
 
 <!-- 10 -->
@@ -547,11 +602,11 @@ print(response.output_text)
     <div class="toolbox">
       <h4>🧰 Toolbox <span class="badge amber">Preview</span></h4>
       <p>IT curates the tools once and exposes them as one governed MCP endpoint to any agent.</p>
-      <div class="tb-items"><span>CMMS</span><span>ERP</span><span>DMS</span><span>TMS</span><span>Teams</span></div>
+      <div data-track="factory" class="tb-items"><span>CMMS</span><span>ERP</span><span>DMS</span><span>TMS</span><span>Teams</span></div><div data-track="finance" class="tb-items"><span>LOS</span><span>LMS</span><span>Bureau</span><span>CRM</span><span>Teams</span></div>
       <div class="tb-end">→ one MCP endpoint, one owner</div>
     </div>
   </div>
-  <div class="callout">Integrating SAP PM, Maximo, a DMS or a TMS is <strong>configuration plus an API</strong>, not a new platform.</div>
+  <div data-track="factory" class="callout">Integrating SAP PM, Maximo, a DMS or a TMS is <strong>configuration plus an API</strong>, not a new platform.</div><div data-track="finance" class="callout">Connecting your LOS, LMS, credit bureau or CRM is <strong>configuration plus an API</strong>, not a new platform.</div>
   <aside class="notes">Tools turn an agent from an answerer into an actor. Toolboxes let one team own the integrations and govern what agents are allowed to do.</aside>
 </section>
 
@@ -559,7 +614,7 @@ print(response.output_text)
 <section>
   <h3>Acting safely: a tool call that waits for approval</h3>
   <div class="code-cols">
-    <pre><code class="language-python" data-trim data-noescape>
+    <pre data-track="factory"><code class="language-python" data-trim data-noescape>
 tool = MCPTool(
     server_label="cmms",
     server_url="https://&lt;your-cmms-mcp-endpoint&gt;/mcp",
@@ -584,15 +639,40 @@ response = openai.responses.create(
     extra_body={"agent_reference": {"name": agent.name, "type": "agent_reference"}},
 )
     </code></pre>
+    <pre data-track="finance"><code class="language-python" data-trim data-noescape>
+tool = MCPTool(
+    server_label="lms",
+    server_url="https://&lt;your-lms-mcp-endpoint&gt;/mcp",
+    require_approval="always",
+    project_connection_id="lms-connection",
+)
+# ...create the agent with tools=[tool], then call it...
+
+approvals = []
+for item in response.output:
+    if item.type == "mcp_approval_request" and item.id:
+        ok = manager_approves(item.name, item.arguments)
+        approvals.append(McpApprovalResponse(
+            type="mcp_approval_response",
+            approve=ok,
+            approval_request_id=item.id,
+        ))
+
+response = openai.responses.create(
+    input=approvals,
+    previous_response_id=response.id,
+    extra_body={"agent_reference": {"name": agent.name, "type": "agent_reference"}},
+)
+    </code></pre>
     <div class="steps">
-      <div class="step"><span class="num">1</span>The agent decides a work order is needed and <strong>proposes</strong> the tool call.</div>
+      <div data-track="factory" class="step"><span class="num">1</span>The agent decides a work order is needed and <strong>proposes</strong> the tool call.</div><div data-track="finance" class="step"><span class="num">1</span>The agent decides a collections case is needed and <strong>proposes</strong> the tool call.</div>
       <div class="step hl"><span class="num">2</span>Execution <strong>pauses</strong>: tool name and arguments go to a person, in your UI or a Teams card.</div>
       <div class="step"><span class="num">3</span>Approved: the tool runs. Rejected: the agent explains and stops.</div>
       <div class="step"><span class="num">⏱</span>Every request and decision is in the trace.</div>
     </div>
   </div>
-  <p class="code-link"><a href="https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol" target="_blank">📎 Connect an agent to an MCP server</a> · <code>supervisor_approves</code> is your own approval UX</p>
-  <aside class="notes">This is the code behind a human approval before a tool runs. In lab block C, Agent Framework does the same with approval_mode="always_require" on the work-order tool. Nothing is written to the maintenance system until a supervisor approves.</aside>
+  <p class="code-link"><a href="https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol" target="_blank">📎 Connect an agent to an MCP server</a> · <span data-track="factory"><code>supervisor_approves</code></span><span data-track="finance"><code>manager_approves</code></span> is your own approval UX</p>
+  <aside class="notes">This is the code behind a human approval before a tool runs. <span data-track="factory">In lab block C, Agent Framework does the same with approval_mode="always_require" on the work-order tool. Nothing is written to the maintenance system until a supervisor approves.</span><span data-track="finance">In Lab 5, Agent Framework does the same with approval_mode="always_require" on the create_collections_case tool. Nothing is written to the loan system until a manager approves.</span></aside>
 </section>
 
 <!-- 12 -->
@@ -601,7 +681,7 @@ response = openai.responses.create(
   <div class="kflow">
     <div class="ksrc">
       <div>📁 SharePoint <span class="muted">(user permissions enforced)</span></div>
-      <div>🗄️ Blob storage: manuals, SOPs</div>
+      <div data-track="factory">🗄️ Blob storage: manuals, SOPs</div><div data-track="finance">🗄️ Blob storage: policies, guidelines</div>
       <div>🏞️ OneLake</div>
       <div>🌐 Web</div>
     </div>
@@ -612,16 +692,16 @@ response = openai.responses.create(
       <div class="eff"><span>low</span><span class="on">medium</span><span>high</span><span style="border:none;background:none">reasoning effort</span></div>
     </div>
     <div class="arr">→<br><span style="font-size:0.5em">MCP</span></div>
-    <div class="kagent"><h4>🤖 Diagnosis agent</h4>"Likely bearing wear on CP-003. Replace per SOP 4.2."<div class="cite">📎 CP-003 maintenance manual, section 4.2</div></div>
+    <div data-track="factory" class="kagent"><h4>🤖 Diagnosis agent</h4>"Likely bearing wear on CP-003. Replace per SOP 4.2."<div class="cite">📎 CP-003 maintenance manual, section 4.2</div></div><div data-track="finance" class="kagent"><h4>🤖 Advisor agent</h4>"UBL-1003: follow COL-PRC-05 and assess option RS-B."<div class="cite">📎 Collections policy §3 · Restructuring guideline §3</div></div>
   </div>
   <div class="mem">
     <div class="lbl">Memory <span class="badge" style="margin-left:8px">Preview</span></div>
     <div><strong>Session:</strong> the current conversation</div>
-    <div><strong>User:</strong> this technician's preferences and history</div>
-    <div><strong>Procedural:</strong> how this plant does things</div>
+    <div data-track="factory"><strong>User:</strong> this technician's preferences and history</div><div data-track="finance"><strong>User:</strong> this collections officer's preferences and history</div>
+    <div data-track="factory"><strong>Procedural:</strong> how this plant does things</div><div data-track="finance"><strong>Procedural:</strong> how this lender does things</div>
   </div>
   <p class="src"><a href="https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect" target="_blank">📎 Connect a Foundry IQ knowledge base</a> · needs Azure AI Search (Basic or higher)</p>
-  <aside class="notes">Chatting with documents is one tool among many. In the session 4 demo, a knowledge base built from a machine manual is attached to the diagnosis agent, and its answer includes a citation. Reasoning effort trades latency and cost for better retrieval.</aside>
+  <aside class="notes">Chatting with documents is one tool among many. In the session 4 demo, <span data-track="factory">a knowledge base built from a machine manual is attached to the diagnosis agent</span><span data-track="finance">a knowledge base built from the collections policy is attached to the advisor agent</span>, and its answer includes a citation. Reasoning effort trades latency and cost for better retrieval.</aside>
 </section>
 
 <!-- 13 -->
@@ -636,7 +716,7 @@ response = openai.responses.create(
 <!-- 14 -->
 <section>
   <h3>A multi-agent orchestration with a human gate</h3>
-  <svg class="wf" viewBox="0 0 1160 330" role="img" aria-label="Sensor feed goes to the anomaly agent. If there's an anomaly, the diagnosis agent finds the root cause, a supervisor approves, and the work-order tool runs. Otherwise the run is logged to the shift report.">
+  <svg data-track="factory" class="wf" viewBox="0 0 1160 330" role="img" aria-label="Sensor feed goes to the anomaly agent. If there's an anomaly, the diagnosis agent finds the root cause, a supervisor approves, and the work-order tool runs. Otherwise the run is logged to the shift report.">
     <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#5b6b78" stroke-width="1.6"/></marker></defs>
     <path class="edge" d="M200 120 L238 120" marker-end="url(#ar)"/>
     <path class="edge" d="M438 120 L476 120" marker-end="url(#ar)"/>
@@ -653,22 +733,39 @@ response = openai.responses.create(
     <g class="node act"><rect x="954" y="74" width="196" height="92" rx="12"/><text class="t1" x="1052" y="112" text-anchor="middle">🛠️ Work order</text><text class="t2" x="1052" y="140" text-anchor="middle">CMMS tool call</text></g>
     <g class="node muted"><rect x="472" y="222" width="250" height="58" rx="12"/><text class="t1" x="597" y="258" text-anchor="middle" style="font-size:18px">📝 Log to shift report</text></g>
   </svg>
+  <svg data-track="finance" class="wf" viewBox="0 0 1160 330" role="img" aria-label="Loan accounts go to the early-warning agent. If an account is on watch or critical, the advisor agent finds the policy step, a manager approves, and the collections-case tool runs. Otherwise the run is logged to the portfolio report.">
+    <defs><marker id="ar-fin" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#5b6b78" stroke-width="1.6"/></marker></defs>
+    <path class="edge" d="M200 120 L238 120" marker-end="url(#ar-fin)"/>
+    <path class="edge" d="M438 120 L476 120" marker-end="url(#ar-fin)"/>
+    <path class="edge" d="M676 120 L714 120" marker-end="url(#ar-fin)"/>
+    <path class="edge" d="M914 120 L952 120" marker-end="url(#ar-fin)"/>
+    <path class="edge dash" d="M338 166 L338 250 L470 250" marker-end="url(#ar-fin)"/>
+    <text class="lbl" x="457" y="58" text-anchor="middle">watch or critical</text>
+    <path class="edge" d="M457 64 L457 112" style="stroke:#d9731f;stroke-width:1.5;stroke-dasharray:3 3"/>
+    <text class="lbl" x="356" y="214">normal</text>
+    <g class="node"><rect x="10" y="74" width="190" height="92" rx="12"/><text class="t1" x="105" y="112" text-anchor="middle">🏦 Loan book</text><text class="t2" x="105" y="140" text-anchor="middle">5 accounts, 4 signals</text></g>
+    <g class="node agent"><rect x="240" y="74" width="198" height="92" rx="12"/><text class="t1" x="339" y="112" text-anchor="middle">🤖 Early warning</text><text class="t2" x="339" y="140" text-anchor="middle">check_account_signals()</text></g>
+    <g class="node agent"><rect x="478" y="74" width="198" height="92" rx="12"/><text class="t1" x="577" y="112" text-anchor="middle">🤖 Advisor agent</text><text class="t2" x="577" y="140" text-anchor="middle">policy + Foundry IQ</text></g>
+    <g class="node gate fragment" data-fragment-index="1"><rect x="716" y="74" width="198" height="92" rx="12"/><text class="t1" x="815" y="112" text-anchor="middle">🙋 Manager</text><text class="t2" x="815" y="140" text-anchor="middle">approve / reject</text></g>
+    <g class="node act"><rect x="954" y="74" width="196" height="92" rx="12"/><text class="t1" x="1052" y="112" text-anchor="middle">📁 Open case</text><text class="t2" x="1052" y="140" text-anchor="middle">loan system tool call</text></g>
+    <g class="node muted"><rect x="472" y="222" width="250" height="58" rx="12"/><text class="t1" x="597" y="258" text-anchor="middle" style="font-size:18px">📝 Log to portfolio report</text></g>
+  </svg>
   <div class="grid3" style="margin-top:6px">
     <div class="card"><h4>Agents as steps</h4><p>Each agent has its own tools and is evaluated on its own.</p></div>
-    <div class="card amber"><h4>Approval step</h4><p>Nothing reaches the CMMS until a person says yes.</p></div>
+    <div data-track="factory" class="card amber"><h4>Approval step</h4><p>Nothing reaches the CMMS until a person says yes.</p></div><div data-track="finance" class="card amber"><h4>Approval step</h4><p>Nothing reaches the loan system until a person says yes.</p></div>
     <div class="card green"><h4>Code first, hosted</h4><p>Agent Framework, deployed as a hosted agent. Visual option: Logic Apps.</p></div>
   </div>
-  <aside class="notes">The session 4 demo, built with Microsoft Agent Framework and running as a hosted agent. In lab block C you build it yourself, including the approval step. The approval step is where trust is built.</aside>
+  <aside class="notes">The session 4 demo, built with Microsoft Agent Framework and running as a hosted agent. <span data-track="factory">In lab block C</span><span data-track="finance">In Lab 5</span> you build it yourself, including the approval step. The approval step is where trust is built.</aside>
 </section>
 
 <!-- 15 -->
 <section>
   <h3>Showcase: agents doing the work</h3>
   <div class="demos">
-    <div class="demo anchor"><div class="ico">🏭</div><h4>Agents on live machine data</h4><p>Anomaly → diagnosis → approval → work order, on the factory scenario</p><div class="time">6 min</div></div>
-    <div class="demo"><div class="ico">🖱️</div><h4>Browser automation <span class="badge">Preview</span></h4><p>Looks up part specs on supplier portals that have no API</p><div class="time">5 min</div></div>
-    <div class="demo"><div class="ico">🐍</div><h4>Code Interpreter as analyst</h4><p>Plots vibration against RPM for 48 h and checks for a bearing signature</p><div class="time">4 min</div></div>
-    <div class="demo"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>A technician or service agent speaks in their own language and gets a diagnosis by voice</p><div class="time">5 min</div></div>
+    <div data-track="factory" class="demo anchor"><div class="ico">🏭</div><h4>Agents on live machine data</h4><p>Anomaly → diagnosis → approval → work order, on the factory scenario</p><div class="time">6 min</div></div><div data-track="finance" class="demo anchor"><div class="ico">🏦</div><h4>Agents on live loan data</h4><p>Early warning → advice → approval → collections case, on the lender scenario</p><div class="time">6 min</div></div>
+    <div data-track="factory" class="demo"><div class="ico">🖱️</div><h4>Browser automation <span class="badge">Preview</span></h4><p>Looks up part specs on supplier portals that have no API</p><div class="time">5 min</div></div><div data-track="finance" class="demo"><div class="ico">🖱️</div><h4>Browser automation <span class="badge">Preview</span></h4><p>Collects a document from a partner portal that has no API</p><div class="time">5 min</div></div>
+    <div data-track="factory" class="demo"><div class="ico">🐍</div><h4>Code Interpreter as analyst</h4><p>Plots vibration against RPM for 48 h and checks for a bearing signature</p><div class="time">4 min</div></div><div data-track="finance" class="demo"><div class="ico">🐍</div><h4>Code Interpreter as analyst</h4><p>Plots 12 months of DPD, bounces and bureau score, and finds when the risk started</p><div class="time">4 min</div></div>
+    <div data-track="factory" class="demo"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>A technician or service agent speaks in their own language and gets a diagnosis by voice</p><div class="time">5 min</div></div><div data-track="finance" class="demo"><div class="ico">🎙️</div><h4>Voice agent <span class="badge">Preview</span></h4><p>A borrower asks about an EMI by voice, in their own language, and gets an answer from policy</p><div class="time">5 min</div></div>
     <div class="demo"><div class="ico">🧪</div><h4>Evaluate, red-team, monitor</h4><p>"Is it safe to put in front of thousands of users?"</p><div class="time">4 min</div></div>
     <div class="demo" style="opacity:0.85"><div class="ico">💻</div><h4>Foundry Toolkit for VS Code</h4><p>Developer audiences: the orchestration in Agent Inspector → hosted agent with <code>azd ai agent</code></p><div class="time">optional</div></div>
   </div>
@@ -679,9 +776,12 @@ response = openai.responses.create(
 <section>
   <h3>You can't ship what you can't see</h3>
   <div class="grid3">
-    <div class="obs-card obs-tr"><h4>Traces</h4><pre class="sample">invoke_agent fault-diagnosis   4.1s
+    <div class="obs-card obs-tr"><h4>Traces</h4><pre data-track="factory" class="sample">invoke_agent fault-diagnosis   4.1s
  ├─ chat gpt-5.4               2.3s
  ├─ execute_tool check_thresholds
+ └─ mcp knowledge-base         0.9s</pre><pre data-track="finance" class="sample">invoke_agent advisor-agent    4.1s
+ ├─ chat gpt-5.4               2.3s
+ ├─ tool check_account_signals
  └─ mcp knowledge-base         0.9s</pre><p>Every run, tool call, token count and latency, in Application Insights.</p></div>
     <div class="obs-card obs-ev"><h4>Evaluations</h4><pre class="sample">groundedness      4.6 / 5
 relevance         4.4 / 5
@@ -704,13 +804,13 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
 <section class="section-slide">
   <p class="section-kicker">Part 3 of 4</p>
   <h2>Build it</h2>
-  <p class="section-sub">Hands-on lab in your own subscription, about 100 minutes</p>
+  <p class="section-sub">Hands-on lab in your own subscription, <span data-track="factory">about 100 minutes</span><span data-track="finance">about five hours</span></p>
   <div class="roadmap"><span>The platform</span><span>See it act</span><span class="current">Build it</span><span>Ship it</span></div>
-  <aside class="notes">The lab code is in the factory folder of this workshop's repository. You completed Challenge 0 in the prerequisites; in the room you only verify it.</aside>
+  <aside class="notes">The lab code is in the <span data-track="factory">factory</span><span data-track="finance">finance</span> folder of this workshop's repository. You completed Challenge 0 in the prerequisites; in the room you only verify it.</aside>
 </section>
 
 <!-- 18 -->
-<section>
+<section data-track="factory">
   <h3>Lab scenario: TireForge Industries</h3>
   <p class="lead">A tyre plant with five critical machines, each streaming temperature, pressure, vibration and RPM.</p>
   <div class="machines">
@@ -729,8 +829,29 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
   <aside class="notes">The check_thresholds tool grounds the anomaly agent in real machine specs rather than the model's general knowledge of what "normal" vibration looks like.</aside>
 </section>
 
+<!-- 18 (finance track) -->
+<section data-track="finance">
+  <h3>Lab scenario: Woodgrove Finance</h3>
+  <p class="lead">A fictional retail lender: five loan accounts, four early-warning signals each.</p>
+  <div class="machines">
+    <div class="mc"><span class="ico">🏠</span><div class="id">HL-1001</div><div class="nm">Home loan</div><table><tr><td>DPD</td><td>0</td></tr><tr><td>bounces</td><td>0</td></tr><tr><td>score drop</td><td>5</td></tr><tr><td>enquiries</td><td>1</td></tr></table></div>
+    <div class="mc alert"><span class="ico">🏢</span><div class="id">LAP-1002</div><div class="nm">Property loan</div><table><tr><td>DPD</td><td class="warn">15 ▲</td></tr><tr><td>bounces</td><td class="warn">2 ▲</td></tr><tr><td>score drop</td><td>18</td></tr><tr><td>enquiries</td><td>1</td></tr></table></div>
+    <div class="mc crit"><span class="ico">💼</span><div class="id">UBL-1003</div><div class="nm">Business loan</div><table><tr><td>DPD</td><td class="warn">46 ▲</td></tr><tr><td>bounces</td><td class="warn">4 ▲</td></tr><tr><td>score drop</td><td class="warn">66 ▲</td></tr><tr><td>enquiries</td><td class="warn">5 ▲</td></tr></table></div>
+    <div class="mc"><span class="ico">🚗</span><div class="id">UCL-1004</div><div class="nm">Used car loan</div><table><tr><td>DPD</td><td>0</td></tr><tr><td>bounces</td><td>1</td></tr><tr><td>score drop</td><td>35</td></tr><tr><td>enquiries</td><td>3</td></tr></table></div>
+    <div class="mc alert"><span class="ico">👤</span><div class="id">PL-1005</div><div class="nm">Personal loan</div><table><tr><td>DPD</td><td>0</td></tr><tr><td>bounces</td><td>0</td></tr><tr><td>score drop</td><td class="warn">62 ▲</td></tr><tr><td>enquiries</td><td class="warn">6 ▲</td></tr></table></div>
+  </div>
+  <p class="limits">Limits: DPD 0 · bounces (6 months) 1 · score drop (90 days) 50 secured, 40 unsecured · enquiries (90 days) 3</p>
+  <div class="mission" style="margin-top:20px">
+    <div><strong>Detect</strong>Check each account's signals against the policy limits</div>
+    <div><strong>Advise</strong>Find the policy step and the payment plan option, with a citation</div>
+    <div><strong>Act</strong>Open a collections case only after a manager approves</div>
+  </div>
+  <p class="src">Woodgrove Finance and all accounts are fictional; the data is synthetic. The same pattern applies to fraud alerts, KYC exceptions and portfolio reviews. <a href="https://github.com/vrajakishore/foundry-agents-workshop/tree/main/finance" target="_blank">📎 Lab guide</a></p>
+  <aside class="notes">The check_account_signals tool grounds the early-warning agent in the lender's own limits rather than the model's general idea of risk. UCL-1004 is on two limits but not above them, so it is normal. Ask the room which accounts they expect to be WATCH and CRITICAL before they run the lab.</aside>
+</section>
+
 <!-- 19 -->
-<section>
+<section data-track="factory">
   <h3>What you'll build</h3>
   <div class="blocks">
     <div class="blk a"><div class="hd"><span class="L">A</span><div><h4>Set up + first agents</h4><p>45 min · sessions 2–3</p></div></div>
@@ -744,6 +865,21 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
   <aside class="notes">Block A is lab Challenge 1. Block B is a demo. Block C is Challenges 2 to 4. In the evaluation challenge, don't enable Tool Call Accuracy for local-only tools.</aside>
 </section>
 
+<!-- 19 (finance track) -->
+<section data-track="finance">
+  <h3>What you'll build</h3>
+  <div class="blocks">
+    <div class="blk a"><div class="hd"><span class="L">A</span><div><h4>Agents + knowledge</h4><p>Labs 1–2 · 10:15–12:15</p></div></div>
+      <ol><li>Verify project, model and <code>.env</code></li><li>Run <code>agents.py</code>: early-warning and advisor agents with <code>check_account_signals</code></li><li>Build a Foundry IQ knowledge base from the policies</li><li>Get advice that cites the policy section</li></ol></div>
+    <div class="blk b"><div class="hd"><span class="L">B</span><div><h4>Tools, trace, evaluate</h4><p>Labs 3–4 · 13:00–14:45</p></div></div>
+      <ol><li>Code Interpreter: when did the risk start?</li><li>Approve an MCP tool call before it runs</li><li>Open a trace: tool calls, tokens, latency</li><li>Score correctness and a fairness pair; run a red-team scan</li></ol></div>
+    <div class="blk c"><div class="hd"><span class="L">C</span><div><h4>Orchestrate, deploy, cost</h4><p>Lab 5 + cost · 15:00–16:15</p></div></div>
+      <ol><li>Run the orchestration and approve a collections case: <code>run_local.py</code></li><li>Deploy it as a hosted agent: <code>azd deploy</code></li><li>Compare models: <code>cost_compare.py</code></li><li>Project the monthly cost</li></ol></div>
+  </div>
+  <div class="callout amber">Quota error? Switch to <code>gpt-5.4-mini</code>. Blocked? Pair with a neighbour or use Codespaces.</div>
+  <aside class="notes">Block A is Challenges 0, 1 and 1b. Block B is Challenges 1c, 2 and 3. Block C is Challenges 4 and 5. In the evaluation challenge, don't enable Tool Call Accuracy for local-only tools.</aside>
+</section>
+
 <!-- 20 -->
 <section>
   <h3>Success: a working agent system, in your subscription</h3>
@@ -752,7 +888,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
     <div><div class="ico">🗂️</div><p>Project</p><span>Foundry</span></div>
     <div><div class="ico">🧠</div><p>Model</p><span>deployed</span></div>
     <div><div class="ico">🤖</div><p>2 agents</p><span>versioned</span></div>
-    <div><div class="ico">🛠️</div><p>Tool</p><span>check_thresholds</span></div>
+    <div><div class="ico">🛠️</div><p>Tool</p><span data-track="factory">check_thresholds</span><span data-track="finance">account signals</span></div>
     <div><div class="ico">🔍</div><p>Trace</p><span>App Insights</span></div>
     <div><div class="ico">🧪</div><p>Eval run</p><span>baseline</span></div>
     <div><div class="ico">🔀</div><p>Orchestration</p><span>hosted agent</span></div>
@@ -809,6 +945,24 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
   <aside class="notes">The controls in order: Entra identity, RBAC, managed identity, network and data controls, content safety, monitoring.</aside>
 </section>
 
+<!-- 23b (finance track) -->
+<section data-track="finance">
+  <h3>Responsible AI in lending: what you built today</h3>
+  <table class="t compact wrap">
+    <thead><tr><th>Principle</th><th>What the lab shows</th><th>Before production</th></tr></thead>
+    <tbody>
+      <tr><td>⚖️ Fairness and Equity</td><td>Fairness pair: same signals, different profile, same status (Challenge 3)</td><td>Test fairness on every release. Never use protected attributes</td></tr>
+      <tr><td>🙋 Accountability · People First</td><td>A manager approves every collections case (Challenge 4)</td><td>A named owner for each agent. The approval matrix in the tool</td></tr>
+      <tr><td>🔍 Understandable by Design</td><td>Advice cites the policy section. Every tool call is traced (Challenges 1b, 2)</td><td>Keep traces and evaluation results for each agent version</td></tr>
+      <tr><td>🛡️ Safety and Resilience</td><td>Red-team scan and content filters (Challenge 3)</td><td>Red-team before each release. An incident process</td></tr>
+      <tr><td>✅ Trust is the Foundation</td><td>Correctness check against the expected status (Challenge 3)</td><td>An evaluation gate in the release pipeline</td></tr>
+      <tr><td>🔒 Data protection</td><td>Synthetic data only. No personal data in prompts, traces or test sets</td><td>Mask personal data. Map controls to the DPDP Act, 2023. Keep processing in an allowed region or data zone</td></tr>
+    </tbody>
+  </table>
+  <p class="src">Principles: the seven Sutras of the RBI FREE-AI committee report (August 2025: 7 Sutras, 26 recommendations). It is a committee report, not a binding direction. Use it as a checklist.</p>
+  <aside class="notes">Map each control in the lab to a FREE-AI Sutra. The report is guidance from an RBI committee, not a direction, so present it as a checklist that supervisors and auditors are likely to ask about. The lab uses only synthetic data, so no personal data enters the workshop project.</aside>
+</section>
+
 <!-- 24 -->
 <section>
   <h3>Workshop setup vs production setup</h3>
@@ -828,14 +982,42 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
     </div>
   </div>
   <p class="src"><a href="https://learn.microsoft.com/azure/foundry/agents/environment-setup" target="_blank">📎 Agent environment setup: basic vs standard</a></p>
-  <aside class="notes">The workshop uses basic setup on purpose. For a pilot that touches real plant or customer data, move to standard setup so conversations, files and vectors live in your own resources.</aside>
+  <aside class="notes">The workshop uses basic setup on purpose. For a pilot that touches <span data-track="factory">real plant or customer data</span><span data-track="finance">real customer data</span>, move to standard setup so conversations, files and vectors live in your own resources.</aside>
+</section>
+
+<!-- 24b (finance track) -->
+<section data-track="finance">
+  <p class="kicker">Challenge 5</p>
+  <h3 style="margin-top:0">What will it cost? Measure, then project</h3>
+  <div class="cost-cols">
+    <div>
+      <table class="t compact">
+        <thead><tr><th>Design, 1M accounts a month</th><th>Model cost</th></tr></thead>
+        <tbody>
+          <tr><td>A · All steps on gpt-5.4</td><td>$2,775</td></tr>
+          <tr><td>B · Scan on mini, advice on gpt-5.4</td><td>$1,357.50</td></tr>
+          <tr><td>C · Design B + Batch API scan</td><td>$1,053.75</td></tr>
+          <tr><td>D · Rules in code + cached advice</td><td><strong>$615</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout amber"><strong>Use code for rules.</strong> Use a model for judgment, language and documents. Design D is the cheapest and the most accurate.</div>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><strong>Measure</strong>: <code>cost_compare.py</code> gives accuracy, tokens and seconds for each model.</div>
+      <div class="step"><span class="num">2</span><strong>Price</strong>: tokens × price per million (input, cached input, output).</div>
+      <div class="step"><span class="num">3</span><strong>See</strong>: <strong>Monitor → Cost</strong> in your project <span class="badge">Preview</span>. Data arrives in 8 to 24 hours.</div>
+      <div class="step hl"><span class="num">4</span><strong>Control</strong>: a budget, plus a cost control <span class="badge">Preview</span> that alerts or blocks at a limit.</div>
+    </div>
+  </div>
+  <p class="src">Example: 1,000,000 scans (450 tokens in, 60 out); 5% flagged for advice (3,000 in, 500 out). Global Standard list prices, November 2026. Model cost only: add search, monitoring and hosting.</p>
+  <aside class="notes">Use the numbers from your own dry run, not only the example. Levers: rules in code, a smaller model for simple steps, prompt caching (cached input costs 90% less), the Batch API for overnight scans (50% less), Model Router, and provisioned throughput for steady high volume. Data Zone Standard costs about 10% more than Global Standard.</aside>
 </section>
 
 <!-- 25 -->
 <section>
   <p class="kicker">Brainstorm</p>
   <h3 style="margin-top:0">Agent patterns you can pilot next</h3>
-  <div class="ucgrid">
+  <div class="ucgrid" data-track="factory">
     <div class="ucc sm">
       <h4>🛠️ Maintenance copilot</h4>
       <div class="flow"><span class="f-tl">Sensor feed</span><b>→</b><span class="f-ag">Diagnosis agent</span><b>+</b><span class="f-kn">Manuals</span><b>→</b><span class="f-hu">Approval</span><b>→</b><span class="f-tl">CMMS work order</span></div>
@@ -865,6 +1047,38 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
       <h4>📐 Engineering knowledge</h4>
       <div class="flow"><span class="f-kn">SharePoint (Foundry IQ)</span><b>→</b><span class="f-ag">Q&amp;A agent</span><b>→</b><span class="f-tl">Teams</span></div>
       <div class="pilot"><strong>Pilot:</strong> 2 libraries, 20 engineers</div>
+    </div>
+  </div>
+  <div class="ucgrid" data-track="finance">
+    <div class="ucc sm">
+      <h4>📉 Collections early warning</h4>
+      <div class="flow"><span class="f-tl">Loan + bureau data</span><b>→</b><span class="f-ag">Early-warning agent</span><b>+</b><span class="f-kn">Policy KB</span><b>→</b><span class="f-hu">Approval</span><b>→</b><span class="f-tl">Collections case</span></div>
+      <div class="pilot"><strong>Pilot:</strong> one product, 12 months of history</div>
+    </div>
+    <div class="ucc sm">
+      <h4>📚 Enterprise knowledge hub</h4>
+      <div class="flow"><span class="f-kn">SharePoint (Foundry IQ)</span><b>+</b><span class="f-tl">Jira, data warehouse (MCP)</span><b>→</b><span class="f-ag">Q&amp;A agent</span><b>→</b><span class="f-tl">Teams</span></div>
+      <div class="pilot"><strong>Pilot:</strong> 2 libraries, 30 users</div>
+    </div>
+    <div class="ucc sm">
+      <h4>🧾 Credit document checks</h4>
+      <div class="flow"><span class="f-tl">Extract statements</span><b>→</b><span class="f-ag">Validation agent</span><b>→</b><span class="f-hu">Credit officer approves</span><b>→</b><span class="f-tl">LOS</span></div>
+      <div class="pilot"><strong>Pilot:</strong> 200 closed files</div>
+    </div>
+    <div class="ucc sm">
+      <h4>🎙️ Borrower service desk</h4>
+      <div class="flow"><span class="f-ag">Voice or chat agent</span><b>+</b><span class="f-kn">Policy KB + memory</span><b>→</b><span class="f-tl">EMI and statement tools</span><b>→</b><span class="f-hu">Escalate</span></div>
+      <div class="pilot"><strong>Pilot:</strong> 5 intents, one language</div>
+    </div>
+    <div class="ucc sm">
+      <h4>🛡️ Fraud and AML alert triage</h4>
+      <div class="flow"><span class="f-tl">Alerts</span><b>→</b><span class="f-ag">Triage agent</span><b>+</b><span class="f-kn">Case history</span><b>→</b><span class="f-hu">Analyst decides</span><b>→</b><span class="f-tl">Case system</span></div>
+      <div class="pilot"><strong>Pilot:</strong> one alert type, 1 month of alerts</div>
+    </div>
+    <div class="ucc sm">
+      <h4>📊 Portfolio analyst</h4>
+      <div class="flow"><span class="f-tl">Data warehouse (MCP)</span><b>→</b><span class="f-ag">Analyst agent</span><b>+</b><span class="f-tl">Code Interpreter</span><b>→</b><span class="f-tl">Teams report</span></div>
+      <div class="pilot"><strong>Pilot:</strong> one product, monthly review</div>
     </div>
   </div>
   <aside class="notes">Which pattern matches your top business problem, and which would you pilot first?</aside>
@@ -908,7 +1122,7 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
 <section>
   <h3>Keep going</h3>
   <ul class="res">
-    <li>🧪 Lab: <a href="https://github.com/vrajakishore/foundry-agents-workshop" target="_blank">github.com/vrajakishore/foundry-agents-workshop</a> (factory/)</li>
+    <li>🧪 Lab: <a href="https://github.com/vrajakishore/foundry-agents-workshop" target="_blank">github.com/vrajakishore/foundry-agents-workshop</a> (<span data-track="factory">factory/</span><span data-track="finance">finance/</span>)</li>
     <li>💻 Foundry Toolkit for VS Code lab: <a href="https://github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab/" target="_blank">github.com/microsoft-foundry/Foundry_Toolkit_for_VSCode_Lab</a></li>
     <li>📖 Agent Service: <a href="https://learn.microsoft.com/azure/foundry/agents/overview" target="_blank">overview</a> · <a href="https://learn.microsoft.com/azure/foundry/agents/quickstarts/prompt-agent" target="_blank">prompt agent quickstart</a> · <a href="https://learn.microsoft.com/azure/foundry/agents/concepts/limits-quotas-regions" target="_blank">regions and tools</a></li>
     <li>🏗️ Set up resources: <a href="https://learn.microsoft.com/azure/foundry/tutorials/quickstart-create-foundry-resources" target="_blank">quickstart</a> · <a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank">RBAC</a> · <a href="https://learn.microsoft.com/azure/foundry/agents/environment-setup" target="_blank">basic vs standard</a></li>
@@ -933,7 +1147,11 @@ quality alerts   1</pre><p>Agent monitoring dashboard: live quality, latency and
 <script src="vendor/highlight.js"></script>
 <script src="vendor/notes.js"></script>
 <script>
-  const customer = new URLSearchParams(location.search).get('customer');
+  const params = new URLSearchParams(location.search);
+  // ?track=finance shows the finance slides. Without it, the deck shows the factory slides.
+  const track = params.get('track') === 'finance' ? 'finance' : 'factory';
+  document.querySelectorAll('[data-track]').forEach(el => { if (el.dataset.track !== track) el.remove(); });
+  const customer = params.get('customer');
   if (customer) {
     const chip = document.getElementById('customer-chip');
     chip.textContent = customer.slice(0, 60);
