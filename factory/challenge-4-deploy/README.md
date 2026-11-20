@@ -1,6 +1,6 @@
 # Challenge 4: Orchestrate and deploy
 
-Time: ~20 minutes
+Time: ~20 minutes (half day). Full day: Lab 5 is Part 1 (~45 minutes). Deploy is Part 2 (~30 minutes)
 
 ## Objectives
 
@@ -86,7 +86,14 @@ Foundry runs your code in a managed sandbox. You don't need Docker or a containe
 azd config set auth.useAzCliAuth true
 ```
 
-On your own laptop, also run `azd ext install azure.ai.agents`. Codespaces already has it.
+You need **azd 1.37.0 or later** with the **Microsoft Foundry** extension. Codespaces already has both. On your own laptop, run:
+
+```bash
+azd update
+azd ext install microsoft.foundry
+```
+
+If you can't update azd, run `azd ext install azure.ai.agents` instead. The commands in this challenge are the same.
 
 ### Step 5: Set up the agent
 
@@ -108,6 +115,8 @@ Answer the prompts:
 | Entry point | `main.py` |
 | Build | Remote build |
 
+Newer azd versions can ask fewer questions or ask them in a different order. Give the same answers.
+
 ### Step 6: Deploy
 
 ```bash
@@ -125,6 +134,12 @@ python chat_hosted.py factory-health-<yourname>
 Approve the work order as before. This time `create_work_order` runs inside Foundry, not on your machine.
 
 In the [Foundry portal](https://ai.azure.com), select **Build** → **Agents** to see your hosted agent and its traces.
+
+To stream the logs of your hosted agent, run `azd ai agent monitor --follow`. If a step fails, run `azd ai agent doctor`. It checks your setup and your permissions.
+
+### Step 8: Publish (full day, facilitator demo)
+
+A hosted agent can be published to Microsoft Teams and Microsoft 365 Copilot. Publishing needs approval from your Microsoft 365 administrator, so your facilitator shows this step as a demo.
 
 ---
 
@@ -154,3 +169,4 @@ azd ai agent delete --force
 
 - [Sequential orchestration in Agent Framework](https://learn.microsoft.com/agent-framework/user-guide/workflows/orchestrations/sequential)
 - [Deploy a hosted agent](https://learn.microsoft.com/azure/foundry/agents/how-to/deploy-hosted-agent)
+- [Initialize a hosted agent project with azd](https://learn.microsoft.com/azure/foundry/agents/how-to/init-agent-project)
