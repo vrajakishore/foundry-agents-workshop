@@ -40,3 +40,7 @@ internal-notes*
 factory/challenge-1c-tools/output/
 factory/challenge-3-evaluate/classification_results.json
 factory/challenge-3-evaluate/redteam_output_*.json
+finance/challenge-1c-tools/output/
+finance/challenge-3-evaluate/classification_results.json
+finance/challenge-3-evaluate/redteam_output_*.json
+finance/challenge-5-cost/cost_results.json
