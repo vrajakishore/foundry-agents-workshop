@@ -1,0 +1,142 @@
+{
+  "lender": "Woodgrove Finance (fictional)",
+  "as_of": "2026-11-20",
+  "note": "Synthetic, pseudonymised data for a workshop. There are no real customers, names or ID numbers in this file.",
+  "status_rules": {
+    "normal": "Every signal is at or below its limit.",
+    "watch": "One or two signals are above their limits, and days_past_due is 30 or less.",
+    "critical": "days_past_due is more than 30, or three or more signals are above their limits."
+  },
+  "accounts": [
+    {
+      "account_id": "HL-1001",
+      "product": "home_loan",
+      "product_name": "Home loan",
+      "branch": "Nashik",
+      "status": "normal",
+      "sanctioned_inr": 2800000,
+      "outstanding_inr": 2412000,
+      "emi_inr": 24600,
+      "emi_due_day": 5,
+      "emis_paid": 38,
+      "previous_restructuring": "none",
+      "last_payment_date": "2026-11-05",
+      "signals": {
+        "days_past_due": {"value": 0, "unit": "days"},
+        "emi_bounces_6m": {"value": 0, "unit": "bounces"},
+        "bureau_score_drop_90d": {"value": 5, "unit": "points"},
+        "credit_enquiries_90d": {"value": 1, "unit": "enquiries"}
+      },
+      "limits": {
+        "days_past_due": {"min": 0, "max": 0},
+        "emi_bounces_6m": {"min": 0, "max": 1},
+        "bureau_score_drop_90d": {"min": 0, "max": 50},
+        "credit_enquiries_90d": {"min": 0, "max": 3}
+      }
+    },
+    {
+      "account_id": "LAP-1002",
+      "product": "loan_against_property",
+      "product_name": "Loan against property",
+      "branch": "Indore",
+      "status": "watch",
+      "sanctioned_inr": 1800000,
+      "outstanding_inr": 1560000,
+      "emi_inr": 22300,
+      "emi_due_day": 5,
+      "emis_paid": 22,
+      "previous_restructuring": "none",
+      "last_payment_date": "2026-10-14",
+      "signals": {
+        "days_past_due": {"value": 15, "unit": "days"},
+        "emi_bounces_6m": {"value": 2, "unit": "bounces"},
+        "bureau_score_drop_90d": {"value": 18, "unit": "points"},
+        "credit_enquiries_90d": {"value": 1, "unit": "enquiries"}
+      },
+      "limits": {
+        "days_past_due": {"min": 0, "max": 0},
+        "emi_bounces_6m": {"min": 0, "max": 1},
+        "bureau_score_drop_90d": {"min": 0, "max": 50},
+        "credit_enquiries_90d": {"min": 0, "max": 3}
+      }
+    },
+    {
+      "account_id": "UBL-1003",
+      "product": "unsecured_business_loan",
+      "product_name": "Unsecured business loan",
+      "branch": "Pune",
+      "status": "critical",
+      "sanctioned_inr": 1500000,
+      "outstanding_inr": 1184000,
+      "emi_inr": 48500,
+      "emi_due_day": 5,
+      "emis_paid": 15,
+      "previous_restructuring": "none",
+      "last_payment_date": "2026-09-18",
+      "signals": {
+        "days_past_due": {"value": 46, "unit": "days"},
+        "emi_bounces_6m": {"value": 4, "unit": "bounces"},
+        "bureau_score_drop_90d": {"value": 66, "unit": "points"},
+        "credit_enquiries_90d": {"value": 5, "unit": "enquiries"}
+      },
+      "limits": {
+        "days_past_due": {"min": 0, "max": 0},
+        "emi_bounces_6m": {"min": 0, "max": 1},
+        "bureau_score_drop_90d": {"min": 0, "max": 40},
+        "credit_enquiries_90d": {"min": 0, "max": 3}
+      }
+    },
+    {
+      "account_id": "UCL-1004",
+      "product": "used_car_loan",
+      "product_name": "Used car loan",
+      "branch": "Jaipur",
+      "status": "normal",
+      "sanctioned_inr": 650000,
+      "outstanding_inr": 390000,
+      "emi_inr": 15200,
+      "emi_due_day": 5,
+      "emis_paid": 20,
+      "previous_restructuring": "none",
+      "last_payment_date": "2026-11-05",
+      "signals": {
+        "days_past_due": {"value": 0, "unit": "days"},
+        "emi_bounces_6m": {"value": 1, "unit": "bounces"},
+        "bureau_score_drop_90d": {"value": 35, "unit": "points"},
+        "credit_enquiries_90d": {"value": 3, "unit": "enquiries"}
+      },
+      "limits": {
+        "days_past_due": {"min": 0, "max": 0},
+        "emi_bounces_6m": {"min": 0, "max": 1},
+        "bureau_score_drop_90d": {"min": 0, "max": 50},
+        "credit_enquiries_90d": {"min": 0, "max": 3}
+      }
+    },
+    {
+      "account_id": "PL-1005",
+      "product": "personal_loan",
+      "product_name": "Personal loan (salaried)",
+      "branch": "Bengaluru",
+      "status": "watch",
+      "sanctioned_inr": 500000,
+      "outstanding_inr": 342000,
+      "emi_inr": 12900,
+      "emi_due_day": 5,
+      "emis_paid": 14,
+      "previous_restructuring": "none",
+      "last_payment_date": "2026-11-05",
+      "signals": {
+        "days_past_due": {"value": 0, "unit": "days"},
+        "emi_bounces_6m": {"value": 0, "unit": "bounces"},
+        "bureau_score_drop_90d": {"value": 62, "unit": "points"},
+        "credit_enquiries_90d": {"value": 6, "unit": "enquiries"}
+      },
+      "limits": {
+        "days_past_due": {"min": 0, "max": 0},
+        "emi_bounces_6m": {"min": 0, "max": 1},
+        "bureau_score_drop_90d": {"min": 0, "max": 40},
+        "credit_enquiries_90d": {"min": 0, "max": 3}
+      }
+    }
+  ]
+}
