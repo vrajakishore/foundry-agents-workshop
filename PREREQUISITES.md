@@ -3,6 +3,8 @@
 
 Each participant creates their own **Microsoft Foundry project** and a first agent in the Foundry portal, in your Azure subscription. Your Azure administrator completes **Part 1** at least **1 working day before** the workshop. Each participant completes **Part 2** (about 30 minutes) the **day before**.
 
+> **Full-day build lab:** Labs 2, 3 and 4 need more setup. Your administrator also completes section 4b at least **2 working days before** the workshop. For the half-day format, skip section 4b. See [FACILITATOR.md](FACILITATOR.md) for the full-day plan.
+
 # Part 1 — Azure administrator
 
 ## 1. Subscription and resource group
@@ -12,7 +14,7 @@ Each participant creates their own **Microsoft Foundry project** and a first age
 
 ```powershell
 az account set --subscription "<subscription-id>"
-foreach ($ns in "Microsoft.CognitiveServices","Microsoft.Insights","Microsoft.OperationalInsights","Microsoft.Storage") { az provider register --namespace $ns }
+foreach ($ns in "Microsoft.CognitiveServices","Microsoft.Insights","Microsoft.OperationalInsights","Microsoft.Storage","Microsoft.Search") { az provider register --namespace $ns }
 az group create --name foundry-workshop --location swedencentral
 ```
 
@@ -22,7 +24,8 @@ az group create --name foundry-workshop --location swedencentral
 
 - **Region:** `swedencentral` (recommended). Alternatives: `eastus2`, `westeurope`.
 - **Model:** each participant deploys `gpt-5.4`, Global Standard, with **10K tokens per minute**. For example, 15 participants need **150K TPM** in the region.
-- **Fallback model:** `gpt-5-mini`, with the same quota.
+- **Fallback model:** `gpt-5.4-mini`, with the same quota. `gpt-5-mini` also works, but it retires earlier.
+- **Full-day lab:** the AI Red Teaming Agent (Lab 4) runs only in some regions. `swedencentral` and `eastus2` are supported. `westeurope` is not. Check the [region list](https://learn.microsoft.com/azure/foundry/how-to/develop/run-scans-ai-red-teaming-agent) before you choose another region.
 
 Check your available quota:
 
@@ -39,7 +42,7 @@ Add all participants to one **Microsoft Entra security group**, then assign thes
 | Role | Scope | Lets participants |
 | --- | --- | --- |
 | **Contributor** | `foundry-workshop` resource group | Create their Foundry project, deploy a model and connect tracing |
-| **Foundry Project Manager** | `foundry-workshop` resource group | Create, run and evaluate agents, and deploy them as hosted agents |
+| **Foundry Project Manager** | `foundry-workshop` resource group | Create, run and evaluate agents, create project connections, and deploy hosted agents |
 | **Cognitive Services Usages Reader** | Subscription | See available quota when deploying a model |
 
 > **Important:** Participants need **both** Contributor and Foundry Project Manager. Contributor alone can't build agents, and the last lab needs Foundry Project Manager to deploy a hosted agent. Only an **Owner** or **User Access Administrator** can assign these roles.
@@ -64,9 +67,37 @@ If participants are on a corporate network or proxy, allow:
 - **Foundry:** `ai.azure.com`, `*.services.ai.azure.com`, `*.cognitiveservices.azure.com`, `*.openai.azure.com`
 - **Azure:** `login.microsoftonline.com`, `management.azure.com`, `portal.azure.com`
 - **Monitoring:** `*.applicationinsights.azure.com`, `*.monitor.azure.com`
+- **Full-day lab:** `*.search.windows.net`, `*.blob.core.windows.net`, `learn.microsoft.com` (the MCP server in Lab 3)
 - **Code:** `github.com`, `*.githubusercontent.com`, `*.github.dev`, `aka.ms`, `pypi.org`, `files.pythonhosted.org`
 
 If your tenant blocks **device-code sign-in**, participants can't sign in from GitHub Codespaces and should use their own laptop instead.
+
+## 4b. Full-day lab only: knowledge for Lab 2
+
+Lab 2 grounds the fault diagnosis agent in TireForge maintenance documents with **Foundry IQ**. Foundry IQ uses **Azure AI Search**. Create one search service and one storage account for all participants.
+
+1. Create an **Azure AI Search** service in the `foundry-workshop` resource group:
+    - **Name:** `<org>-workshop-search` (it must be unique in Azure).
+    - **Region:** the workshop region.
+    - **Pricing tier:** **Basic** or higher. The Free tier doesn't support the lab.
+    - After creation, open **Settings → Semantic ranker** and select the **Free** plan.
+2. Create a **storage account** in the same resource group, for example `<org>workshopkb`. Create a blob container named `tireforge-knowledge`.
+3. Upload the three files from [factory/challenge-1b-knowledge/knowledge](factory/challenge-1b-knowledge/knowledge) to the container.
+
+```powershell
+az search service create --name <org>-workshop-search --resource-group foundry-workshop --location swedencentral --sku basic --semantic-search free
+az storage account create --name <org>workshopkb --resource-group foundry-workshop --location swedencentral --sku Standard_LRS
+az storage container create --name tireforge-knowledge --account-name <org>workshopkb --auth-mode login
+az storage blob upload-batch --destination tireforge-knowledge --source factory/challenge-1b-knowledge/knowledge --account-name <org>workshopkb --auth-mode login
+```
+
+> **Note:** The `upload-batch` command needs **Storage Blob Data Contributor** on the storage account for your own account. If you don't have it, upload the files in the Azure portal instead.
+
+The lab connects to the search service with an **API key**. Participants have Contributor on the resource group, so the portal can read the key for them. You don't need to assign search data roles for the lab.
+
+> **Keyless option:** For production, use Microsoft Entra ID instead of keys. Then assign **Search Index Data Reader** on the search service to each project's managed identity, after the participants create their projects. See [Connect a Foundry IQ knowledge base to Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect).
+
+If Foundry IQ isn't available to you, Lab 2 has a **File Search** path that needs no search service.
 
 # Part 2 — Participant
 
@@ -119,7 +150,7 @@ The lab code is in https://github.com/vrajakishore/foundry-agents-workshop. Choo
 
 **Option B — Your own laptop**
 
-Install **Python 3.10+**, **Azure CLI 2.80+**, **Azure Developer CLI (`azd`) 1.27.1+**, **Git** and **VS Code**, then run:
+Install **Python 3.11 or later** (3.12 or 3.13 recommended), **Azure CLI 2.80+**, **Azure Developer CLI (`azd`) 1.37.0+**, **Git** and **VS Code**, then run:
 
 ```powershell
 git clone https://github.com/vrajakishore/foundry-agents-workshop.git
@@ -127,9 +158,11 @@ cd foundry-agents-workshop
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-azd ext install azure.ai.agents
+azd ext install microsoft.foundry
 az login
 ```
+
+Python 3.10 reached end of life in October 2026. Don't use it for the workshop.
 
 ## 10. Connect your code to your project
 
@@ -141,7 +174,7 @@ cp factory/.env.template factory/.env
 
 Open `factory/.env` and fill in these two values:
 
-- **`PROJECT_CONNECTION_STRING`:** in the Foundry portal, select **Home**. Copy the **Project endpoint**. It must end with `/api/projects/<your-alias>-workshop`. If it shows another name, you're in a colleague's project: select your own project in the upper-left and copy the endpoint again.
+- **`PROJECT_CONNECTION_STRING`:** in the Foundry portal, select **Home**. Copy the **Project endpoint**. It must end with `/api/projects/<your-alias>-workshop`. If it shows another name, you're in a colleague's project: select your own project in the upper-left and copy the endpoint again. The variable name says "connection string", but it holds the project endpoint.
 - **`APPLICATIONINSIGHTS_CONNECTION_STRING`:** in the Azure portal (**https://portal.azure.com**), open **Resource groups → foundry-workshop**. Select `<your-alias>-appinsights`, then copy the **Connection String** from the **Overview** page.
 
 **Can't run `az login`?** If your administrator allows API keys, also set **`FOUNDRY_API_KEY`**: in the Foundry portal, select **Home** and copy the **Project API key**. A key only reaches the model, so for the labs that build agents you use the portal steps in each lab. Leave it empty if `az login` works.
@@ -160,12 +193,14 @@ python factory/smoke_test.py
 | --- | --- |
 | Permission error when creating the project | Under **Advanced options**, select the **`foundry-workshop`** resource group. If it still fails, ask your administrator for **Contributor** on it |
 | `PermissionDenied` when creating or deploying an agent | Ask your administrator for the **Foundry Project Manager** role. Wait 10 minutes, then sign in again |
-| Quota error when deploying the model | Set a lower **Tokens per minute**, or deploy `gpt-5-mini` instead |
+| Quota error when deploying the model | Set a lower **Tokens per minute**, or deploy `gpt-5.4-mini` instead |
 | `RequestDisallowedByPolicy` | Ask your administrator to exempt the `foundry-workshop` resource group from the policy |
 | `KeyError: 'PROJECT_CONNECTION_STRING'` | Your `.env` file isn't in the `factory` folder |
 | You see agents, traces or evaluations you didn't create | You're in a colleague's project. Select your own `<your-alias>-workshop` project in the portal and put its endpoint in `factory/.env` |
 | `DefaultAzureCredential failed to retrieve a token` | Run `az login --tenant <tenant-id>` |
 | `AuthenticationTypeDisabled` when using an API key | API keys are turned off for your project. Empty `FOUNDRY_API_KEY` in `.env` and run `az login` |
+| `azd ai agent` says the command is unknown | Run `azd update`. Then run `azd ext install microsoft.foundry`. With azd older than 1.37.0, run `azd ext install azure.ai.agents` |
+| `pip` can't find a version that matches | Your Python is too old. Use Python 3.11 or later |
 | Portal shows hub or "classic" screens | Turn on **New Foundry** at the top of the portal |
 
 ## After the workshop
@@ -176,4 +211,4 @@ Administrators can delete everything with one command, and should also remove th
 az group delete --name foundry-workshop --yes --no-wait
 ```
 
-**Useful links:** [Workshop repository](https://github.com/vrajakishore/foundry-agents-workshop) · [Foundry roles (RBAC)](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) · [Create a Foundry project](https://learn.microsoft.com/azure/foundry/how-to/create-projects)
+**Useful links:** [Workshop repository](https://github.com/vrajakishore/foundry-agents-workshop) · [Foundry roles (RBAC)](https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry) · [Create a Foundry project](https://learn.microsoft.com/azure/foundry/how-to/create-projects) · [Connect agents to Foundry IQ](https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect)
