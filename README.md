@@ -1,20 +1,30 @@
 # Microsoft Foundry hands-on workshop: agents that act
 
-Code companion for the Microsoft Foundry hands-on workshop. You build agents in your own Azure subscription that read live machine data, decide, call tools and work together as a hosted agent.
+Code companion for the Microsoft Foundry hands-on workshop. You build agents in your own Azure subscription that read live business data, decide, call tools and work together as a hosted agent.
 
 📽️ **Slides:** https://vrajakishore.github.io/foundry-agents-workshop/
 
+## Choose a scenario track
+
+Both tracks teach the same Foundry skills with the same setup, project and `.env` file. Choose the story that your audience knows.
+
+| Track | Scenario | Folder | Good for |
+| --- | --- | --- | --- |
+| **Factory** | Predictive maintenance for a fictional tyre plant, TireForge Industries | [`factory/`](factory/README.md) | Manufacturing, automotive, energy, utilities |
+| **Finance** | Collections early warning for a fictional retail lender, Woodgrove Finance | [`finance/`](finance/README.md) | Banks, non-banking finance companies, insurers, fintechs |
+
 ## What you'll build
 
-A predictive-maintenance system for a fictional tyre plant, TireForge Industries:
-
-- An **anomaly detection agent** that checks sensor readings with a `check_thresholds` function tool
-- A **fault diagnosis agent** that finds the likely root cause and recommends an action
-- A **knowledge base** in Foundry IQ that grounds each diagnosis in maintenance manuals and past incidents (full day)
-- A **maintenance planner agent** that analyses sensor history with Code Interpreter and calls an MCP server only after you approve (full day)
-- **Traces** of every model and tool call in Application Insights
-- An **evaluation run** that scores the agent's answers, a **correctness check** against the expected status, and a **red-team scan** (full day)
-- A **multi-agent orchestration** in Microsoft Agent Framework that asks you to approve each work order, deployed as a Foundry hosted agent
+| Building block | Factory track | Finance track |
+| --- | --- | --- |
+| An agent that checks live records with a **function tool** | Anomaly detection agent, `check_thresholds` | Early-warning agent, `check_account_signals` |
+| An agent that **recommends an action** | Fault diagnosis agent | Collections advisor agent |
+| A **Foundry IQ knowledge base** with citations (full day) | Maintenance manual, incident history, policy | Collections policy, restructuring guideline, case history |
+| **Code Interpreter** and an **MCP server with approvals** (full day) | 24 hours of sensor history | 12 months of account history |
+| **Traces** in Application Insights | ✓ | ✓ |
+| **Evaluation**, a **correctness check** and a **red-team scan** | ✓ | ✓, plus a **fairness pair** check |
+| A **multi-agent orchestration** with a human approval, deployed as a **hosted agent** | Approve each work order | Approve each collections case |
+| A **cost lab**: tokens, model comparison and a monthly projection | | ✓ |
 
 ## Workshop formats
 
@@ -74,17 +84,18 @@ Can't run `az login`? Set the optional `FOUNDRY_API_KEY` in `factory/.env` (sect
 
 ## Lab challenges
 
-The full scenario is in [factory/README.md](factory/README.md).
+The full scenarios are in [factory/README.md](factory/README.md) and [finance/README.md](finance/README.md).
 
-| # | Challenge | What you do | Full-day lab |
-| --- | --- | --- | --- |
-| 0 | [Verify your setup](factory/challenge-0-setup/README.md) | Check the project, model and `.env` from the prerequisites | Lab 1 |
-| 1 | [Build agents](factory/challenge-1-build/README.md) | Create the anomaly detection and fault diagnosis agents | Lab 1 |
-| 1b | [Ground in knowledge](factory/challenge-1b-knowledge/README.md) | Connect a Foundry IQ knowledge base to the diagnosis agent | Lab 2 |
-| 1c | [Tools, MCP and approvals](factory/challenge-1c-tools/README.md) | Analyse sensor history with Code Interpreter and approve MCP tool calls | Lab 3 |
-| 2 | [Monitor](factory/challenge-2-monitor/README.md) | Trace your agents in Application Insights | Lab 4 |
-| 3 | [Evaluate](factory/challenge-3-evaluate/README.md) | Score quality, check correctness and red-team the diagnosis agent | Lab 4 |
-| 4 | [Orchestrate and deploy](factory/challenge-4-deploy/README.md) | Chain both agents in code, approve work orders, deploy as a hosted agent | Lab 5 and Deploy |
+| # | Challenge | What you do | Factory | Finance | Full-day lab |
+| --- | --- | --- | --- | --- | --- |
+| 0 | Verify your setup | Check the project, model and `.env` from the prerequisites | [Open](factory/challenge-0-setup/README.md) | [Open](finance/challenge-0-setup/README.md) | Lab 1 |
+| 1 | Build agents | Create two agents and a function tool | [Open](factory/challenge-1-build/README.md) | [Open](finance/challenge-1-build/README.md) | Lab 1 |
+| 1b | Ground in knowledge | Connect a Foundry IQ knowledge base | [Open](factory/challenge-1b-knowledge/README.md) | [Open](finance/challenge-1b-knowledge/README.md) | Lab 2 |
+| 1c | Tools, MCP and approvals | Analyse history with Code Interpreter and approve MCP tool calls | [Open](factory/challenge-1c-tools/README.md) | [Open](finance/challenge-1c-tools/README.md) | Lab 3 |
+| 2 | Monitor | Trace your agents in Application Insights | [Open](factory/challenge-2-monitor/README.md) | [Open](finance/challenge-2-monitor/README.md) | Lab 4 |
+| 3 | Evaluate | Score quality, check correctness and red-team the agent | [Open](factory/challenge-3-evaluate/README.md) | [Open](finance/challenge-3-evaluate/README.md) | Lab 4 |
+| 4 | Orchestrate and deploy | Chain both agents in code, approve each action, deploy as a hosted agent | [Open](factory/challenge-4-deploy/README.md) | [Open](finance/challenge-4-deploy/README.md) | Lab 5 and Deploy |
+| 5 | Cost | Measure tokens, compare models and project the monthly cost | | [Open](finance/challenge-5-cost/README.md) | Production readiness |
 
 When you finish, see the [wrap-up](factory/wrapup.md) for ideas on where to go next.
 
@@ -93,7 +104,8 @@ When you finish, see the [wrap-up](factory/wrapup.md) for ideas on where to go n
 | Path | Contents |
 | --- | --- |
 | `docs/` | The slides, published with GitHub Pages |
-| `factory/` | The lab: one folder per challenge |
+| `factory/` | The factory track: one folder per challenge |
+| `finance/` | The finance track: one folder per challenge |
 | `PREREQUISITES.md` | Setup for administrators and participants |
 | `FACILITATOR.md` | Full-day agenda, dry-run checklist and fallbacks |
 
@@ -107,7 +119,7 @@ az group delete --name foundry-workshop --yes --no-wait
 
 ## Credits
 
-The lab in `factory/` is adapted from the factory scenario in [microsoft/FrontierWeekHack](https://github.com/microsoft/FrontierWeekHack) (MIT licence). In this version, you set up in the Foundry portal instead of running a deployment script, and the repository adds `smoke_test.py`, `.env.template` and the full-day labs.
+The lab in `factory/` is adapted from the factory scenario in [microsoft/FrontierWeekHack](https://github.com/microsoft/FrontierWeekHack) (MIT licence). In this version, you set up in the Foundry portal instead of running a deployment script, and the repository adds `smoke_test.py`, `.env.template` and the full-day labs. The `finance/` track uses the same patterns with a new scenario and synthetic data.
 
 ## Licence
 
