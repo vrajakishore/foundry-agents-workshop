@@ -1,5 +1,7 @@
-azure-ai-projects>=2.0.0
-azure-ai-agents>=1.1.0
+# Python 3.11 or later. Codespaces uses Python 3.13.
+# Agent Framework 1.13.1 supports azure-ai-projects >=2.2.0,<2.7.0, so this file uses the same range.
+# Test this set in your dry run. Then freeze it: pip freeze > requirements.lock.txt
+azure-ai-projects>=2.2.0,<2.7.0
 azure-ai-evaluation>=1.16.7
 azure-identity>=1.15.0
 python-dotenv>=1.0.0
