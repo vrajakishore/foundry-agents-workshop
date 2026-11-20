@@ -12,7 +12,7 @@
         },
         "ghcr.io/azure/azure-dev/azd:latest": {}
     },
-    "postCreateCommand": "az config set extension.dynamic_install_allow_preview=true && pip3 install --upgrade pip && pip3 install --user -r requirements.txt && (azd extension install azure.ai.agents || true)",
+    "postCreateCommand": "az config set extension.dynamic_install_allow_preview=true && pip3 install --upgrade pip && pip3 install --user -r requirements.txt && (azd extension install microsoft.foundry || azd extension install azure.ai.agents || true)",
     "customizations": {
         "vscode": {
             "extensions": [
