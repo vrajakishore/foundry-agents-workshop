@@ -36,3 +36,7 @@ challenge-*/sdk-track/solutions/
 
 # Presenter-only notes (never publish)
 internal-notes*
+# Lab outputs
+factory/challenge-1c-tools/output/
+factory/challenge-3-evaluate/classification_results.json
+factory/challenge-3-evaluate/redteam_output_*.json
